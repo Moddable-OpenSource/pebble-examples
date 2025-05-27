@@ -3,8 +3,7 @@ Updated May 27, 2025
 
 This repository hosts a collection of examples for working in Embedded JavaScript using the Moddable SDK on PebbleOS.
 
-Things to know:
-
+## Things to know
 
 - JavaScript is precompiled at build time to bytecode into a mod. See the Moddable SDK [documentation on mods](https://www.moddable.com/documentation/xs/mods) for details.
 - You will need the Moddable SDK tools available to build the mod. To ensure they are synchronized with the version of the Moddable SDK used in PebbleOS, you should build the tools from source at this point.
@@ -25,4 +24,11 @@ Things to know:
 	./setup.sh
 	```
 - The example just logs to the Pebble console so run `./waf qemu_console` to see the output.
+- All JavaScript executes in [strict mode](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Strict_mode). You aren't still depending on sloppy mode?
+- The XS engine in this build is stripped significantly to fit in the limited space, so many built-ins and methods are unavailable. If you try to invoke them, you will typically get a "dead strip" exception.
 
+## The examples
+
+- `hellopebble` – The "hello, world" of this collection. One line. Perfect place to start.
+- `hellotimer` – Demonstrates use of `setTimeout`.
+- `hellomodule` – Mods can contain multiple modules. This is simple example of main loading another module from the mod.
