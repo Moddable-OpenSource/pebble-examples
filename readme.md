@@ -14,7 +14,7 @@ Things to know:
 	cd moddable/build/make/mac
 	make debug && make
 	```
-	Add `$MODDABLE` pointing to the root of the Moddable SDK to your environment and add `$MODDABLE//Users/hoddie/Projects/moddable/build/bin/mac/release` to your `$PATH`. [Full set-up instructions](https://www.moddable.com/documentation/Moddable%20SDK%20-%20Getting%20Started) are also available.
+	Add `$MODDABLE` pointing to the root of the Moddable SDK to your environment and add `$MODDABLE/build/bin/mac/release` to your `$PATH`. [Full set-up instructions](https://www.moddable.com/documentation/Moddable%20SDK%20-%20Getting%20Started) are also available.
 
 - The XS Mod is wrapped in a Pebble native application. It is stored as the first resource.
 - The process of using `mcrun` to build the mod and then triggering the normal Pebble app build is taken care of by `setup.sh` in the examples. 
