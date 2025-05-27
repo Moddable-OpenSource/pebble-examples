@@ -15,7 +15,7 @@ This repository hosts a collection of examples for working in Embedded JavaScrip
 	```
 	Add `$MODDABLE` pointing to the root of the Moddable SDK to your environment and add `$MODDABLE/build/bin/mac/release` to your `$PATH`. [Full set-up instructions](https://www.moddable.com/documentation/Moddable%20SDK%20-%20Getting%20Started) are also available.
 
-- The XS Mod is wrapped in a Pebble native application. It is stored as the first resource.
+- The XS Mod is wrapped in a Pebble native application. THe mod is stored as the first resource.
 - The process of using `mcrun` to build the mod and then triggering the normal Pebble app build is taken care of by `setup.sh` in the examples. 
 - To run `hellopebble`:
 
