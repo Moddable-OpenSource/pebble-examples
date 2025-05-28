@@ -7,7 +7,7 @@ This repository hosts a collection of examples for working in Embedded JavaScrip
 
 - JavaScript is precompiled at build time to bytecode into a mod. See the Moddable SDK [documentation on mods](https://www.moddable.com/documentation/xs/mods) for details.
 - The XS Mod is wrapped in a Pebble native application. The mod is stored as the first resource.
-- The process of using `mcrun` to build the mod and then triggering the normal Pebble app build is taken care of by `setup.sh` in the examples. 
+- The `setup.sh` script in each example builds the mod with `mcrun` and then triggers the normal Pebble app build with `rebble`.
 - All JavaScript executes in [strict mode](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Strict_mode). You aren't still depending on sloppy mode?
 - All modules as standard ECMAScript modules, not CommonJS modules.
 - Execution is performed under [Hardened JavaScript](https://hardenedjs.org). The primary observable consequence is that all primordials are immutable, which removes the possibility of [monkey patches](https://en.wikipedia.org/wiki/Monkey_patch). Note that the Hardened JavaScript restrictions on `Date` and `Math.random()` are not applied.
