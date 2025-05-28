@@ -1,9 +1,9 @@
 # Moddable SDK Examples for PebbleOS
-Updated May 27, 2025
+Updated May 28, 2025
 
 This repository hosts a collection of examples for working in Embedded JavaScript using the Moddable SDK on PebbleOS.
 
-## Things your should know
+## Things you should know
 
 - JavaScript is precompiled at build time to bytecode into a mod. See the Moddable SDK [documentation on mods](https://www.moddable.com/documentation/xs/mods) for details.
 - The XS Mod is wrapped in a Pebble native application. The mod is stored as the first resource.
@@ -37,12 +37,6 @@ This repository hosts a collection of examples for working in Embedded JavaScrip
 	```
 	cd {{your QEMU directory}}
 	./qemu-start.sh
-	```
-
-- These examples use `console.log()`. Its output is routed to App Lib's logging facility. To see the output, launch the Pebble log viewer, after launching QEMU but before running the app:
-
-	```
-	rebble logs --qemu localhost:12344
 	```
 
 - Finally, run `hellopebble`:

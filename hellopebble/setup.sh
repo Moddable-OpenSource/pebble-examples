@@ -6,3 +6,4 @@ mkdir -p resources/mods
 cp build/bin/mac/mc/release/embeddedjs/mc.xsa ./resources/mods/mc.xsa
 rebble build
 rebble install --qemu localhost:12344
+rebble logs --qemu localhost:12344
