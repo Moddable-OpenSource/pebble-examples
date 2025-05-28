@@ -9,7 +9,9 @@ This repository hosts a collection of examples for working in Embedded JavaScrip
 - The XS Mod is wrapped in a Pebble native application. The mod is stored as the first resource.
 - The process of using `mcrun` to build the mod and then triggering the normal Pebble app build is taken care of by `setup.sh` in the examples. 
 - All JavaScript executes in [strict mode](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Strict_mode). You aren't still depending on sloppy mode?
-- The XS engine in this build is stripped significantly to fit in the limited space, so many built-ins and methods are unavailable. If you try to invoke them, you will typically get a "dead strip" exception.
+- All modules as standard ECMAScript modules, not CommonJS modules.
+- Execution is performed under [Hardened JavaScript](https://hardenedjs.org). The primary observable consequence is that all primordials are immutable, which removes the possibility of [monkey patches](https://en.wikipedia.org/wiki/Monkey_patch). Note that the Hardened JavaScript restrictions on `Date` and `Math.random()` are not applied.
+- The XS engine in this build is configured to eliminate features to fit in the limited space. Therefore, many built-ins and methods are unavailable. If you try to invoke them, you will typically get a "dead strip" exception.
 
 ## Getting started
 
