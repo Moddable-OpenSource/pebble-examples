@@ -70,10 +70,11 @@ When you launch QEMU, it shows the QEMU console in addition to the emulator wind
 However, exiting QEMU is more difficult that you might imagine. The easiest way to kill it is to press Control C in the QEMU console. (Don't ask where your mouse cursor went...)
 
 These are the Pebble button mappings:
-	- Up - up arrow
-	- Down - down arrow
-	- Back - left arrow
-	- Select - right arrow
+
+- Up - up arrow
+- Down - down arrow
+- Back - left arrow
+- Select - right arrow
 
 When QEMU first starts, PebbleOS shows an alert about having not been properly shut down. This will stay up until dismissed (press Back). You want to dismiss it because it will prevent your application from displaying on the screen.
 
