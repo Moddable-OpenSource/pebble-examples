@@ -16,7 +16,7 @@ This repository hosts a collection of examples for working in Embedded JavaScrip
 - The Pebble build depends on a tool called `rebble`. Install that following their [instructions](https://github.com/richinfante/rebbletool?tab=readme-ov-file#setup).
 	- You don't need to do the steps after `rebble sdk install latest`
 	- Absolutely ignore the note on "Prerequisites for Apple Silicon: Install Rosetta 2". 
-	- Each time you start a new terminal session, be sure to activate its Python virtual environment and add it to your `$PATH`. That looks something like this:
+	- Each time you start a new terminal session, be sure to activate Rebble's Python virtual environment and add it to your `$PATH`. That looks something like this:
 
 		```
 		cd ~/pebble/rebbletool/rebbletool
@@ -24,7 +24,7 @@ This repository hosts a collection of examples for working in Embedded JavaScrip
 		export PATH=~/pebble/rebbletool/rebbletool/bin:$PATH
 		```
 
-- You will need the Moddable SDK tools available to build the mod. To ensure they are synchronized with the version of the Moddable SDK used in PebbleOS, you can use the macOS binaries [attached to this repository](https://github.com/Moddable-OpenSource/pebble-examples/releases).
+- You will need the Moddable SDK tools available to build the mod. To ensure they are synchronized with the version of the Moddable SDK used in PebbleOS firmware, you can use the macOS binaries [attached to this repository](https://github.com/Moddable-OpenSource/pebble-examples/releases).
 
 	To use these binaries, add `$MODDABLE` to your environment variables, pointing to the root of the Moddable SDK, and add `$MODDABLE/build/bin/mac/release` to your `$PATH`. 
 	
@@ -37,18 +37,43 @@ This repository hosts a collection of examples for working in Embedded JavaScrip
 	./qemu-start.sh
 	```
 
-- These examples use `console.log()`. Its output is routed to App Lib's logging facility. To see the output, launch the Pebble log, after launching QEMU but before running the app:
+- These examples use `console.log()`. Its output is routed to App Lib's logging facility. To see the output, launch the Pebble log viewer, after launching QEMU but before running the app:
 
 	```
 	rebble logs --qemu localhost:12344
 	```
 
-- To run `hellopebble`:
+- Finally, run `hellopebble`:
 
 	```
 	cd hellopebble
 	./setup.sh
 	```
+	The screen will be blank in QEMU as hellopebble has no user interface. The log viewer will show:
+
+	```
+	(.env) hoddie@jphAir2022 hellopebble % rebble logs --qemu localhost:12344        
+	[15:46:30] xsHost.c:130> unimplemented: xSemaphoreCreateMutex
+	[15:46:30] xsHost.c:130> unimplemented: xQueueCreate
+	[15:46:30] xsHost.c:130> Found mod "hellopebble.moddable.tech"
+	[15:46:30] xsHost.c:130> Hello, Pebble.
+	```
+
+## Using QEMU
+
+If you have never used QEMNU before, it is not entirely obvious.
+
+When you launch QEMU, it shows the QEMU console in addition to the emulator window for the display. The console is more-or-less useless for JavaScript developers.
+
+However, exiting QEMU is more difficult that you might imagine. The easiest way to kill it is to press Control C in the QEMU console. (Don't ask where your mouse cursor went...)
+
+These are the Pebble button mappings:
+	- Up - up arrow
+	- Down - down arrow
+	- Back - left arrow
+	- Select - right arrow
+
+When QEMU first starts, PebbleOS shows an alert about having not been properly shut down. This will stay up until dismissed (press Back). You want to dismiss it because it will prevent your application from displaying on the screen.
 
 ## The examples
 
