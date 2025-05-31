@@ -1,5 +1,5 @@
 # Moddable SDK Examples for PebbleOS
-Updated May 28, 2025
+Updated May 31, 2025
 
 This repository hosts a collection of examples for working in Embedded JavaScript using the Moddable SDK on PebbleOS.
 
@@ -9,9 +9,9 @@ This repository hosts a collection of examples for working in Embedded JavaScrip
 - The XS Mod is wrapped in a Pebble native application. The mod is stored as the first resource.
 - The `setup.sh` script in each example builds the mod with `mcrun` and then triggers the normal Pebble app build with `rebble`.
 - All JavaScript executes in [strict mode](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Strict_mode). You aren't still depending on sloppy mode?
-- All modules as standard ECMAScript modules, not CommonJS modules.
+- All modules are standard ECMAScript modules, not CommonJS modules.
 - Execution is performed under [Hardened JavaScript](https://hardenedjs.org). The primary observable consequence is that all primordials are immutable, which removes the possibility of [monkey patches](https://en.wikipedia.org/wiki/Monkey_patch). Note that the Hardened JavaScript restrictions on `Date` and `Math.random()` are not applied.
-- The XS engine in this build is configured to eliminate features to fit in the limited space. Therefore, many built-ins and methods are unavailable. If you try to invoke them, you will typically get a "dead strip" exception.
+- The XS engine in this build is configured to eliminate language features unlikely to be useful on Pebble. If you try to invoke them, you will typically get a "dead strip" exception. Details of the omitted features are [below](#omitted).
 
 ## Getting started
 
@@ -45,7 +45,7 @@ This repository hosts a collection of examples for working in Embedded JavaScrip
 	cd hellopebble
 	./setup.sh
 	```
-	The screen will be blank in QEMU as hellopebble has no user interface. The log viewer will show:
+	The screen will be blank in QEMU as `hellopebble` has no user interface. The log viewer will show:
 
 	```
 	(.env) hoddie@jphAir2022 hellopebble % rebble logs --qemu localhost:12344        
@@ -57,11 +57,11 @@ This repository hosts a collection of examples for working in Embedded JavaScrip
 
 ## Using QEMU
 
-If you have never used QEMNU before, it is not entirely obvious.
+If you have never used QEMU before, it is not entirely obvious.
 
-When you launch QEMU, it shows the QEMU console in addition to the emulator window for the display. The console is more-or-less useless for JavaScript developers.
+When you launch QEMU, the terminal shows the QEMU console and a separate emulator window is launched for the display. The console is more-or-less useless for JavaScript developers.
 
-However, exiting QEMU is more difficult that you might imagine. The easiest way to kill it is to press Control C in the QEMU console. (Don't ask where your mouse cursor went...)
+However, exiting QEMU is more difficult that you might imagine. The easiest way to exit is to press Control C in the QEMU console. (Don't ask where your mouse cursor went...)
 
 These are the Pebble button mappings:
 
@@ -74,6 +74,52 @@ When QEMU first starts, PebbleOS shows an alert about having not been properly s
 
 ## The examples
 
+### Basics
 - `hellopebble` – The "hello, world" of this collection. One line. Perfect place to start.
 - `hellotimer` – Demonstrates use of `setTimeout`.
-- `hellomodule` – Mods can contain multiple modules. This is simple example of main loading another module from the mod.
+- `hellomodule` – Mods can contain multiple modules. This is a simple example of the mod's main module loading another module.
+
+### Storage
+- `hellokeyvalue` - Uses ECMA-419 Key-Value Storage to access Pebble Settings files for persistent storage. Supports storing binary data and strings. Future work to support integers. Special mode option to open Pebble settings files  created by built-in applications.
+- `hellolocalstorage` – Uses [the `localStorage` global](https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage) from the Web standard to persist strings. This is implemented using ECMA-419 Key-Value Storage. Each application has its own local storage.
+
+### Sensors
+All sensors modules use the [Sensor Class Pattern API](https://419.ecma-international.org/#-13-sensor-class-pattern) from the ECMA-419 standard.
+
+- `helloaccelerometer` – Subscribes to accelerometer readings.
+- `hellobattery` – Subscribes to battery and "plugged in" readings. 
+
+> **Note**: The compass has also been implemented but there's not currently a good way to test that, so it is not included here.
+
+### User experience
+The APIs used here are a little rougher as the runtime is simultaneously supporting APIs from RockyJS, Pebble native graphics, and Moddable's Poco. This will get ironed out.
+
+- `hellobutton` – Subscribes to Pebble button events.
+- `hellogbitmap` – Renders bitmaps stored in `GBitmap` resources.
+- `hellorocky` – The classic RockyJS watchface demo. Enhanced to change display modes with the Select button.
+- `hellowatchface` – An example watchface app in JavaScript.
+
+### Communication
+These examples are the most challenging to run because they communicate with PebbleKit JS. The `./setup` script has been modified to launch PebbleKit JS. This uses `rebble` which means `rebble` is unavailable to display logs from the watch (QEMU). There must be a solution for this....
+
+- `hellomessage` - An [ECMA-419 IO Class Pattern](https://419.ecma-international.org/#-9-io-class-pattern) style API to access Pebble's `app_message` API to communicate between the watch and PebbleKit JS. 
+- `hellohttpclient` - This uses the standard [ECMA-419 HTTP Client](https://419.ecma-international.org/#-20-http-client-class-pattern) to make HTTP requests. The HTTP Client implementation uses `app_message` to communicate with PebbleKit JS which uses XMLHttpRequest to make the actual request.
+- `hellofetch` - This implements the [web standard `fetch()` API](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API) to make HTTP requests. The implementation is a subset of `fetch()`; specifically, it excludes features which use Web Streams. The `fetch()` implementation uses the HTTP Client implementation.
+
+> **Note 1**: For most developers, `fetch()` is the right API for HTTP requests. The httpclient API is more memory efficient because it supports sending the request body in fragments and receiving the response body in fragment. Naturally, as a more powerful low level API it is less convenient to use.
+
+> **Note 2**: Copying the HTTP proxy for PebbleKit JS into each application is a bad idea. The HTTPClient proxy for PebbleKit JS should probably be rolled into an npm package so it can be managed and installed through the app's `package.json`. `@moddable` is awaits!
+
+<a id="omitted"></a>
+## Omitted JavaScript features
+This build of XS intentionally omits features of JavaScript that are unlikely to be useful on Pebble. This saves flash space. When a script invokes a feature that has been omitted, a "dead strip" exception is thrown. These features are stripped:
+
+- `Proxy` and `Reflect` – primarily used for test frameworks and meta-programming techniques
+- `Atomics` and `SharedArrayBuffer` – meaningless without Web Workers (which is not currently available on PebbleOS)
+- `WeakMap`, ``WeakRef`, `WeakSet` – used for tracking objects in JavaScript patches which isn't necessary on Pebble
+- `BigInt` – IEEE-754 double precision floating point is already a stretch on Pebble; let's not try multiplying 1024-bit integers
+- `eval`, `Function` and `Generator` – JavaScript source code is compiled to bytecode at build time, so the parser is unnecessary at runtime. Details on the [blog](https://www.moddable.com/blog/eval/).
+
+To be clear, these features could be made available on Pebble, they just aren't at this time.
+
+On the other hand, because JavaScript developers can't seem to live with `RegExp` that is fully supported, as is `JSON` along with most everything else in the ES2025 edition of the JavaScript standard.
