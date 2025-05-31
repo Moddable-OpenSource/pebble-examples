@@ -1,0 +1,55 @@
+{
+  "name": "Hello, GBitmap.",
+  "author": "Moddable",
+  "version": "1.0.0",
+  "keywords": ["pebble-app"],
+  "private": true,
+  "dependencies": {},
+  "pebble": {
+    "displayName": "JS - GBitmap",
+    "uuid": "12471cb1-caf2-4925-a63c-f27e9eb9cf61",
+    "sdkVersion": "3",
+    "enableMultiJS": true,
+    "targetPlatforms": [
+      "aplite",
+      "basalt",
+      "chalk",
+      "diorite"
+    ],
+    "watchapp": {
+      "watchface": false
+    },
+    "messageKeys": [
+      "dummy"
+    ],
+    "resources": {
+      "media": [
+		  {
+			"type": "raw",
+			"name": "MOD",
+			"file": "mods/mc.xsa"
+		  },
+		  {
+			"type": "bitmap",
+			"name": "IMAGE_SUN",
+			"file": "img/sun.png"
+		  },
+		  {
+			"type": "bitmap",
+			"name": "IMAGE_RAIN",
+			"file": "img/rain.png"
+		  },
+		  {
+			"type": "bitmap",
+			"name": "IMAGE_CLOUD",
+			"file": "img/cloud.png"
+		  },
+		  {
+			"type": "bitmap",
+			"name": "IMAGE_SNOW",
+			"file": "img/snow.png"
+		  }
+	  ]
+    }
+  }
+}

@@ -1,0 +1,39 @@
+import Message from "pebble/message";
+
+console.log("hello, message");
+
+const message = new Message({
+	input: 256,
+	output: 256,
+	keys: new Map([
+		["RANDOM", 0],
+		["DATE", 1],
+		["COUNTER", 2]
+	]),
+	onReadable() {
+		console.log("on readable");
+		const msg = this.read();
+		if (!msg)
+			return console.log("  undefined msg!?!?");
+
+		msg.forEach((value, key) => {
+			console.log(`  ${key}: ${value}`);
+		});
+	},
+	onWritable() {
+		console.log("on writable");
+		if (this.once)
+			return;
+			
+		this.once = true;
+		setTimeout(() => {		//@@ for some reason, if write immediately on initial onWritable, the phone JavaScript doesn't see it. so... wait...
+			const m = new Map;
+			m.set("COUNTER", 1000);
+			this.write(m);
+			console.log("wrote!");
+		}, 100);
+	},
+	onSuspend() {
+		console.log("suspended")
+	}
+});
