@@ -20,7 +20,7 @@ This repository hosts a collection of examples for working in Embedded JavaScrip
 	- Absolutely ignore the note on "Prerequisites for Apple Silicon: Install Rosetta 2". 
 	- Each time you start a new terminal session, be sure to activate Rebble's Python virtual environment and add it to your `$PATH`. That looks something like this:
 
-		```
+		```console
 		cd ~/pebble/rebbletool/rebbletool
 		source .env/bin/activate
 		export PATH=~/pebble/rebbletool/rebbletool/bin:$PATH
@@ -34,20 +34,21 @@ This repository hosts a collection of examples for working in Embedded JavaScrip
 
 - Before building, get [QEMU with Pebble firmware](https://github.com/Moddable-OpenSource/pebble-examples/releases). Then, launch QEMU:
 
-	```
+	```console
 	cd {{your QEMU directory}}
 	./qemu-start.sh
 	```
 
 - Finally, run `hellopebble`:
 
-	```
+	```console
 	cd hellopebble
 	./setup.sh
 	```
-	The screen will be blank in QEMU as `hellopebble` has no user interface. The log viewer will show:
 
-	```
+	The screen in QMEU is blank because `hellopebble` has no user interface. The log viewer shows:
+
+	```console
 	(.env) hoddie@jphAir2022 hellopebble % rebble logs --qemu localhost:12344        
 	[15:46:30] xsHost.c:130> unimplemented: xSemaphoreCreateMutex
 	[15:46:30] xsHost.c:130> unimplemented: xQueueCreate
@@ -84,7 +85,7 @@ When QEMU first starts, PebbleOS shows an alert about having not been properly s
 - `hellolocalstorage` – Uses [the `localStorage` global](https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage) from the Web standard to persist strings. This is implemented using ECMA-419 Key-Value Storage. Each application has its own local storage.
 
 ### Sensors
-All sensors modules use the [Sensor Class Pattern API](https://419.ecma-international.org/#-13-sensor-class-pattern) from the ECMA-419 standard.
+All sensors modules follow the [Sensor Class Pattern API](https://419.ecma-international.org/#-13-sensor-class-pattern) from the ECMA-419 standard.
 
 - `helloaccelerometer` – Subscribes to accelerometer readings.
 - `hellobattery` – Subscribes to battery and "plugged in" readings. 
@@ -92,7 +93,7 @@ All sensors modules use the [Sensor Class Pattern API](https://419.ecma-internat
 > **Note**: The compass has also been implemented but there's not currently a good way to test that, so it is not included here.
 
 ### User experience
-The APIs used here are a little rougher as the runtime is simultaneously supporting APIs from RockyJS, Pebble native graphics, and Moddable's Poco. This will get ironed out.
+The APIs used here are a little rougher as the runtime simultaneously supports APIs from RockyJS, Pebble native graphics, and Moddable's Poco. This will get ironed out.
 
 - `hellobutton` – Subscribes to Pebble button events.
 - `hellogbitmap` – Renders bitmaps stored in `GBitmap` resources.
@@ -102,13 +103,13 @@ The APIs used here are a little rougher as the runtime is simultaneously support
 ### Communication
 These examples are the most challenging to run because they communicate with PebbleKit JS. The `./setup` script has been modified to launch PebbleKit JS. This uses `rebble` which means `rebble` is unavailable to display logs from the watch (QEMU). There must be a solution for this....
 
-- `hellomessage` - An [ECMA-419 IO Class Pattern](https://419.ecma-international.org/#-9-io-class-pattern) style API to access Pebble's `app_message` API to communicate between the watch and PebbleKit JS. 
-- `hellohttpclient` - This uses the standard [ECMA-419 HTTP Client](https://419.ecma-international.org/#-20-http-client-class-pattern) to make HTTP requests. The HTTP Client implementation uses `app_message` to communicate with PebbleKit JS which uses XMLHttpRequest to make the actual request.
-- `hellofetch` - This implements the [web standard `fetch()` API](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API) to make HTTP requests. The implementation is a subset of `fetch()`; specifically, it excludes features which use Web Streams. The `fetch()` implementation uses the HTTP Client implementation.
+- `hellomessage` - An [ECMA-419 IO Class Pattern](https://419.ecma-international.org/#-9-io-class-pattern) style API to access Pebble's `app_message` API for communication between the watch and PebbleKit JS. 
+- `hellohttpclient` - Uses the standard [ECMA-419 HTTP Client](https://419.ecma-international.org/#-20-http-client-class-pattern) to make HTTP requests. The HTTP Client implementation uses `app_message` to communicate with PebbleKit JS which uses XMLHttpRequest to make the actual request.
+- `hellofetch` - Uses the [web standard `fetch()` API](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API) to make HTTP requests. The implementation is a subset of `fetch()`; specifically, it excludes features which require Web Streams. The `fetch()` implementation uses the HTTP Client implementation.
 
-> **Note 1**: For most developers, `fetch()` is the right API for HTTP requests. The httpclient API is more memory efficient because it supports sending the request body in fragments and receiving the response body in fragment. Naturally, as a more powerful low level API it is less convenient to use.
+> **Note 1**: For most developers, `fetch()` is the right API for HTTP requests. The httpclient API is more memory efficient because it supports sending the request body in fragments, receiving the response body in fragment, and uses callbacks instead of promises. Naturally, as a more powerful low level API it is less convenient to use.
 
-> **Note 2**: Copying the HTTP proxy for PebbleKit JS into each application is a bad idea. The HTTPClient proxy for PebbleKit JS should probably be rolled into an npm package so it can be managed and installed through the app's `package.json`. `@moddable` is awaits!
+> **Note 2**: Copying the HTTP proxy for PebbleKit JS into each application is a bad idea. The HTTPClient proxy for PebbleKit JS should probably be rolled into an npm package so it can be managed and installed through the app's `package.json`: `@moddable/pkjs` on npm awaits!
 
 <a id="omitted"></a>
 ## Omitted JavaScript features
@@ -116,8 +117,8 @@ This build of XS intentionally omits features of JavaScript that are unlikely to
 
 - `Proxy` and `Reflect` – primarily used for test frameworks and meta-programming techniques
 - `Atomics` and `SharedArrayBuffer` – meaningless without Web Workers (which is not currently available on PebbleOS)
-- `WeakMap`, ``WeakRef`, `WeakSet` – used for tracking objects in JavaScript patches which isn't necessary on Pebble
-- `BigInt` – IEEE-754 double precision floating point is already a stretch on Pebble; let's not try multiplying 1024-bit integers
+- `WeakMap`, `WeakRef`, `WeakSet` – used for tracking objects in JavaScript patches which isn't necessary on Pebble
+- `BigInt` – IEEE-754 double precision floating point is already a stretch on Pebble; let's not multiply 1024-bit integers too
 - `eval`, `Function` and `Generator` – JavaScript source code is compiled to bytecode at build time, so the parser is unnecessary at runtime. Details on the [blog](https://www.moddable.com/blog/eval/).
 
 To be clear, these features could be made available on Pebble, they just aren't at this time.
