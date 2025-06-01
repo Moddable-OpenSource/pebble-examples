@@ -123,4 +123,4 @@ This build of XS intentionally omits features of JavaScript that are unlikely to
 
 To be clear, these features could be made available on Pebble, they just aren't at this time.
 
-On the other hand, because JavaScript developers can't seem to live with `RegExp` that is fully supported, as is `JSON` along with most everything else in the ES2025 edition of the JavaScript standard.
+On the other hand, because JavaScript developers can't seem to live without `RegExp` that is fully supported, as is `JSON` along with most everything else in the ES2025 edition of the JavaScript standard.
