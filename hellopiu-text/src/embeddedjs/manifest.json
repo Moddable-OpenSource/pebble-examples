@@ -1,0 +1,24 @@
+{
+	"defines": {
+		"cfe": { "kern": true }
+	},
+	"modules": {
+		"*": "./main"
+	},
+	"resources":{
+		"*-alpha": [
+			{
+				"source": "$(MODDABLE)/examples/assets/scalablefonts/OpenSans/OpenSans-Semibold",
+				"size": 22,
+				"monochrome": true,
+				"blocks": ["Basic Latin"]
+			},
+			{
+				"source": "$(MODDABLE)/examples/assets/scalablefonts/OpenSans/OpenSans-Regular",
+				"size": 15,
+				"monochrome": true,
+				"blocks": ["Basic Latin"]
+			}
+		]
+	}
+}

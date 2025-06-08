@@ -1,0 +1,45 @@
+{
+  "name": "Hello, Piu GBitmap.",
+  "author": "Moddable",
+  "version": "1.0.0",
+  "keywords": ["pebble-app"],
+  "private": true,
+  "dependencies": {},
+  "pebble": {
+    "displayName": "JS - Piu GBitmap",
+    "uuid": "12471cb1-caf2-4925-a63c-f27e9eb9cf80",
+    "sdkVersion": "3",
+    "enableMultiJS": true,
+    "targetPlatforms": [
+      "aplite",
+      "basalt",
+      "chalk",
+      "diorite"
+    ],
+    "watchapp": {
+      "watchface": false
+    },
+    "messageKeys": [
+      "dummy"
+    ],
+    "resources": {
+      "media": [
+		  {
+			"type": "raw",
+			"name": "MOD",
+			"file": "mods/mc.xsa"
+		  },
+		  {
+			"type": "bitmap",
+			"name": "IMAGE_DESKTOP",
+			"file": "img/desktop.png"
+		  },
+		  {
+			"type": "bitmap",
+			"name": "IMAGE_SUN",
+			"file": "img/sun.png"
+		  }
+	  ]
+    }
+  }
+}

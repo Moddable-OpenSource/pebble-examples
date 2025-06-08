@@ -1,0 +1,27 @@
+{
+	"modules": {
+		"*": "./main.js"
+	},
+	"resources": {
+		"*-alpha": [
+			{
+				"source": "$(MODDABLE)/examples/assets/scalablefonts/OpenSans/OpenSans-Regular",
+				"size": 21,
+				"monochrome": true,
+				"blocks": ["Basic Latin"]
+			},
+			{
+				"source": "$(MODDABLE)/examples/assets/scalablefonts/NotoSans/NotoSansJP-Regular",
+				"size": 24,
+				"monochrome": true,
+				"characters": ["新宿出口"]
+			},
+			{
+				"source": "$(MODDABLE)/examples/assets/scalablefonts/Radley/Radley-Italic",
+				"size": 26,
+				"monochrome": true,
+				"blocks": ["Basic Latin"]
+			}
+		]
+	}
+}
