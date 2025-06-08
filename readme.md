@@ -99,7 +99,8 @@ All sensors modules follow the [Sensor Class Pattern API](https://419.ecma-inter
 The APIs used here are a little rougher as the runtime simultaneously supports APIs from RockyJS, Pebble native graphics, and Moddable's Poco. This will get ironed out.
 
 - `hellobutton` – Subscribes to Pebble button events.
-- `hellogbitmap` – Renders bitmaps stored in `GBitmap` resources.
+- `hellopoco-gbitmap` – Renders bitmaps stored in `GBitmap` resources using Poco.
+- `hellopiu-balls` – The classic Moddable SDK [piu/balls](https://github.com/Moddable-OpenSource/moddable/blob/public/examples/piu/balls/main.js) example for Pebble. The balls have been changed to 1-bit.- `hellopiu-coloredsquares` – Draws three colored squares. Take from the Piu chapter of [our book](https://www.moddable.com/book).- `hellopiu-gbitmap` – Draws a Pebble GBitmap PNG image using a Piu texture.- `hellopiu-jsicon` – Draws a Moddable SDK Bitmap using a Piu texture- `hellopiu-text` – The classic Moddable SDK [piu/text](https://github.com/Moddable-OpenSource/moddable/blob/public/examples/piu/text/main.js) example for Pebble. Demonstrates dynamic layout with different fonts and sizes. Ffonts are generated with `bmfont` to make resizing easy.hellopoco-gbitmap- `hellopoco-text` – Example of rendering text with Poco. Includes Japanese text to demonstrate UTF-8 multibyte suppport.
 - `hellorocky` – The classic RockyJS watchface demo. Enhanced to change display modes with the Select button.
 - `hellowatchface` – An example watchface app in JavaScript.
 
@@ -108,7 +109,7 @@ These examples are the most challenging to run because they communicate with Peb
 
 - `hellomessage` - An [ECMA-419 IO Class Pattern](https://419.ecma-international.org/#-9-io-class-pattern) style API to access Pebble's `app_message` API for communication between the watch and PebbleKit JS. 
 - `hellohttpclient` - Uses the standard [ECMA-419 HTTP Client](https://419.ecma-international.org/#-20-http-client-class-pattern) to make HTTP requests. The HTTP Client implementation uses `app_message` to communicate with PebbleKit JS which uses XMLHttpRequest to make the actual request.
-- `hellofetch` - Uses the [web standard `fetch()` API](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API) to make HTTP requests. The implementation is a subset of `fetch()`; specifically, it excludes features which require Web Streams. The `fetch()` implementation uses the HTTP Client implementation.
+- `hellofetch` - Uses the [web standard `fetch()` API](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API) to make HTTP requests. The implementation is a subset of `fetch()`; specifically, it excludes features which require Web Streams. The `fetch()` implementation is built on the HTTP Client.
 
 > **Note 1**: For most developers, `fetch()` is the right API for HTTP requests. The httpclient API is more memory efficient because it supports sending the request body in fragments, receiving the response body in fragment, and uses callbacks instead of promises. Naturally, as a more powerful low level API it is less convenient to use.
 
@@ -127,3 +128,22 @@ This build of XS intentionally omits features of JavaScript that are unlikely to
 To be clear, these features could be made available on Pebble, they just aren't at this time.
 
 On the other hand, because JavaScript developers can't seem to live without `RegExp` that is fully supported, as is `JSON` along with most everything else in the ES2025 edition of the JavaScript standard.
+
+<a id="api-notes"></a>
+## API notes
+
+### Piu
+Piu is partially enabled in this release. There are no known issues but the API is large. Only classes that have been tested are enabled. At this time, the available classes are:
+
+- `Application`
+- `Behavior`
+- `Container`
+- `Content`
+- `Link`
+- `Skin`
+- `Style`
+- `Text`
+- `Texture`
+
+To work with Pebble bitmaps as textures,  `Texture`  extends the `path` property of its dictionary. As before, if `path` is a string, it refers to a Moddable SDK resource; if it is a number, it refers to a Pebble resource.
+
