@@ -1,5 +1,5 @@
 # Moddable SDK Examples for PebbleOS
-Updated May 31, 2025
+Updated June 8, 2025
 
 This repository hosts a collection of examples for working in Embedded JavaScript using the Moddable SDK on PebbleOS.
 
@@ -14,6 +14,8 @@ This repository hosts a collection of examples for working in Embedded JavaScrip
 - The XS engine in this build is configured to eliminate language features unlikely to be useful on Pebble. If you try to invoke them, you will typically get a "dead strip" exception. Details of the omitted features are [below](#omitted).
 
 ## Getting started
+
+> **Note**: These instructions are for macOS only.
 
 - The Pebble build depends on a tool called `rebble`. Install that following their [instructions](https://github.com/richinfante/rebbletool?tab=readme-ov-file#setup).
 	- You don't need to do the steps after `rebble sdk install latest`
@@ -36,6 +38,7 @@ This repository hosts a collection of examples for working in Embedded JavaScrip
 
 	```console
 	cd {{your QEMU directory}}
+	xattr -d com.apple.quarantine qemu-system-arm
 	./qemu-start.sh
 	```
 
