@@ -1,5 +1,5 @@
 # Moddable SDK Examples for PebbleOS
-Updated June 8, 2025
+Updated June 11, 2025
 
 This repository hosts a collection of examples for working in Embedded JavaScript using the Moddable SDK on PebbleOS.
 
@@ -98,11 +98,20 @@ All sensors modules follow the [Sensor Class Pattern API](https://419.ecma-inter
 ### User experience
 The APIs used here are a little rougher as the runtime simultaneously supports APIs from RockyJS, Pebble native graphics, and Moddable's Poco. This will get ironed out.
 
+#### User input
 - `hellobutton` – Subscribes to Pebble button events.
-- `hellopiu-balls` – The classic Moddable SDK [piu/balls](https://github.com/Moddable-OpenSource/moddable/blob/public/examples/piu/balls/main.js) example for Pebble. The balls have been changed to 1-bit.- `hellopiu-coloredsquares` – Draws three colored squares. Take from the Piu chapter of [our book](https://www.moddable.com/book).- `hellopiu-gbitmap` – Draws a Pebble GBitmap PNG image using a Piu texture.- `hellopiu-jsicon` – Draws a Moddable SDK Bitmap using a Piu texture- `hellopiu-text` – The classic Moddable SDK [piu/text](https://github.com/Moddable-OpenSource/moddable/blob/public/examples/piu/text/main.js) example for Pebble. Demonstrates dynamic layout with different fonts and sizes. Fonts generated with `bmfont` to make resizing easy.- `hellopoco-gbitmap` – Renders bitmaps stored in `GBitmap` resources using Poco.
-- `hellopoco-text` – Example of rendering text with Poco. Includes Japanese text to demonstrate UTF-8 multibyte suppport.
-- `hellorocky` – The classic RockyJS watchface demo. Enhanced to change display modes with the Select button.
+
+#### Piu user interface framework
+- `hellopiu-balls` – The classic Moddable SDK [piu/balls](https://github.com/Moddable-OpenSource/moddable/blob/public/examples/piu/balls/main.js) example for Pebble. The balls have been changed to 1-bit.- `hellopiu-coloredsquares` – Draws three colored squares. Take from the Piu chapter of [our book](https://www.moddable.com/book).- `hellopiu-gbitmap` – Draws a Pebble GBitmap PNG image using a Piu texture.- `hellopiu-jsicon` – Draws a Moddable SDK Bitmap using a Piu texture- `hellopiu-text` – The classic Moddable SDK [piu/text](https://github.com/Moddable-OpenSource/moddable/blob/public/examples/piu/text/main.js) example for Pebble. Demonstrates dynamic layout with different fonts and sizes. Fonts generated with `bmfont` to make resizing easy.- `hellopiu-pebbletext` – The classic Moddable SDK [piu/text](https://github.com/Moddable-OpenSource/moddable/blob/public/examples/piu/text/main.js) example rendered using Pebble built-in fonts.- `hellopiu-transitions` – Cycles through several of Piu's built-in transitions. Also, shows use of text `Label` class. Use's Pebble built-in fonts.
+
+### Poco renderer- `hellopoco-gbitmap` – Renders bitmaps stored in `GBitmap` resources using Poco.
+- `hellopoco-text` – Example of rendering text with Poco using Moddable SDK fonts. Includes Japanese text to demonstrate UTF-8 multibyte support.
+- `hellopoco-pebbletext` – Example of rendering text with Poco using Pebble built-in fonts.
 - `hellowatchface` – An example watchface app in JavaScript.
+
+### Rocky
+
+- `hellorocky` – The classic RockyJS watchface demo. Enhanced to change display modes with the Select button.
 
 ### Communication
 These examples are the most challenging to run because they communicate with PebbleKit JS. The `./setup` script has been modified to launch PebbleKit JS. This uses `rebble` which means `rebble` is unavailable to display logs from the watch (QEMU). There must be a solution for this....
@@ -139,11 +148,44 @@ Piu is partially enabled in this release. There are no known issues but the API 
 - `Behavior`
 - `Container`
 - `Content`
+- `Label`
 - `Link`
 - `Skin`
 - `Style`
 - `Text`
 - `Texture`
+- `Transition`
 
-To work with Pebble bitmaps as textures,  `Texture`  extends the `path` property of its dictionary. As before, if `path` is a string, it refers to a Moddable SDK resource; if it is a number, it refers to a Pebble resource.
+To work with Pebble bitmaps as textures,  `Texture`  extends the `path` property of its dictionary. As before, if `path` is a string, it refers to a Moddable SDK resource; if a number, it refers to a Pebble resource.
 
+### Pebble built-in fonts
+
+Pebble's built-in fonts may be used from both Piu and Poco. These fonts are currently available:
+
+| Family Name      | Style     | Size |
+|------------------|-----------|------|
+| Bitham           | Black     | 30   |
+| Bitham           | Bold      | 42   |
+| Bitham           | Light     | 42   |
+| Bitham           | Regular   | 34   |
+| Bitham           | Regular   | 42   |
+| Droid Serif      | Bold      | 28   |
+| Gothic           | Bold      | 14   |
+| Gothic           | Bold      | 18   |
+| Gothic           | Bold      | 24   |
+| Gothic           | Bold      | 28   |
+| Gothic           | Regular   | 14   |
+| Gothic           | Regular   | 18   |
+| Gothic           | Regular   | 24   |
+| Gothic           | Regular   | 28   |
+| Leco             | Bold      | 20   |
+| Leco             | Bold      | 26   |
+| Leco             | Bold      | 32   |
+| Leco             | Bold      | 36   |
+| Leco             | Bold      | 38   |
+| Leco             | Bold      | 42   |
+| Leco             | Light     | 28   |
+| Roboto           | Bold      | 49   |
+| Roboto           | Condensed | 21   |
+
+> **Note**: Some built-in fonts, such as Leco, provide only a subset of glyphs.
