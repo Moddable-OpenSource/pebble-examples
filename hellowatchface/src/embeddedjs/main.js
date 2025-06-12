@@ -4,7 +4,7 @@ console.log("Hello, Watchface.");
 
 let render = new Poco(screen);
 
-const font = new render.Font("30px bolder Bitham");
+const font = new render.Font("Bitham-Black", 30);
 const black = render.makeColor(0, 0, 0);
 const white = render.makeColor(255, 255, 255);
 
