@@ -12,9 +12,9 @@ const Square = Content.template($ => ({
 }));
 
 const blackSquare = new Square("black", { left: 20, top: 20 });
-const whiteSquare = new Square("white");
-const graySquare = new Square("black", { right: 20, bottom: 20 });
+const graySquare = new Square("gray");
+const anotherBlackSquare = new Square("black", { right: 20, bottom: 20 });
 
 application.add(blackSquare);
-application.add(whiteSquare);
 application.add(graySquare);
+application.add(anotherBlackSquare);
