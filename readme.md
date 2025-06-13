@@ -1,5 +1,5 @@
 # Moddable SDK Examples for PebbleOS
-Updated June 12, 2025
+Updated June 13, 2025
 
 This repository hosts a collection of examples for working in Embedded JavaScript using the Moddable SDK on PebbleOS.
 
@@ -102,7 +102,8 @@ The APIs used here are a little rougher as the runtime simultaneously supports A
 - `hellobutton` – Subscribes to Pebble button events.
 
 #### Piu user interface framework
-- `hellopiu-balls` – The classic Moddable SDK [piu/balls](https://github.com/Moddable-OpenSource/moddable/blob/public/examples/piu/balls/main.js) example for Pebble. The balls have been changed to 1-bit.- `hellopiu-coloredsquares` – Draws three colored squares. From the Piu chapter of [our book](https://www.moddable.com/book).- `hellopiu-gbitmap` – Draws a Pebble GBitmap PNG image using a Piu texture.- `hellopiu-jsicon` – Draws a Moddable SDK Bitmap using a Piu texture- `hellopiu-port` – Draws an animated graph using a Piu Port. From the Piu chapter of [our book](https://www.moddable.com/book).- `hellopiu-text` – The classic Moddable SDK [piu/text](https://github.com/Moddable-OpenSource/moddable/blob/public/examples/piu/text/main.js) example for Pebble. Demonstrates dynamic layout with different fonts and sizes. Fonts generated with `bmfont` to make resizing easy.- `hellopiu-pebbletext` – The classic Moddable SDK [piu/text](https://github.com/Moddable-OpenSource/moddable/blob/public/examples/piu/text/main.js) example rendered using Pebble built-in fonts.- `hellopiu-transitions` – Cycles through several of Piu's built-in transitions. Also, shows use of text `Label` class. Use's Pebble built-in fonts.
+- `hellopiu-balls` – The classic Moddable SDK [piu/balls](https://github.com/Moddable-OpenSource/moddable/blob/public/examples/piu/balls/main.js) example for Pebble. The balls have been changed to 1-bit.- `hellopiu-coloredsquares` – Draws three colored squares. From the Piu chapter of [our book](https://www.moddable.com/book).- `hellopiu-gbitmap` – Draws a Pebble GBitmap PNG image using a Piu texture.- `hellopiu-jsicon` – Draws a Moddable SDK Bitmap using a Piu texture- `hellopiu-port` – Draws an animated graph using a Piu Port. From the Piu chapter of [our book](https://www.moddable.com/book).- `hellopiu-text` – The classic Moddable SDK [piu/text](https://github.com/Moddable-OpenSource/moddable/blob/public/examples/piu/text/main.js) example for Pebble. Demonstrates dynamic layout with different fonts and sizes. Fonts generated with `bmfont` to make resizing easy.- `hellopiu-pebbletext` – The classic Moddable SDK [piu/text](https://github.com/Moddable-OpenSource/moddable/blob/public/examples/piu/text/main.js) example rendered using Pebble built-in fonts.- `hellopiu-timeline` – Shows various easing equations using Timeline animation. Lightly revised version of [piu/easing-equations](https://github.com/Moddable-OpenSource/moddable/blob/public/examples/piu/easing-equations/main.js) example for Pebble display.
+- `hellopiu-transitions` – Cycles through several of Piu's built-in transitions. Also, shows use of text `Label` class. Use's Pebble built-in fonts.
 
 ### Poco renderer- `hellopoco-gbitmap` – Renders bitmaps stored in `GBitmap` resources using Poco.
 - `hellopoco-text` – Example of rendering text with Poco using Moddable SDK fonts. Includes Japanese text to demonstrate UTF-8 multibyte support.
@@ -146,16 +147,20 @@ Piu is partially enabled in this release. There are no known issues but the API 
 
 - `Application`
 - `Behavior`
+- `Column`
 - `Container`
 - `Content`
 - `Label`
 - `Link`
 - `Port`
+- `Row`
 - `Skin`
 - `Style`
 - `Text`
 - `Texture`
 - `Transition`
+
+The `Timeline` module is available by `import`, as usual.
 
 To work with Pebble bitmaps as textures,  `Texture`  extends the `path` property of its dictionary. As before, if `path` is a string, it refers to a Moddable SDK resource; if a number, it refers to a Pebble resource.
 
