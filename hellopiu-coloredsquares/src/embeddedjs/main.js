@@ -11,10 +11,10 @@ const Square = Content.template($ => ({
 	skin: new Skin({ fill: $ })
 }));
 
-const blackSquare = new Square("black", { left: 20, top: 20 });
+const lightGraySquare = new Square("#8CC", { left: 20, top: 20 });
 const graySquare = new Square("gray");
-const anotherBlackSquare = new Square("black", { right: 20, bottom: 20 });
+const darkGraySquare = new Square("#800", { right: 20, bottom: 20 });
 
-application.add(blackSquare);
+application.add(lightGraySquare);
 application.add(graySquare);
-application.add(anotherBlackSquare);
+application.add(darkGraySquare);
