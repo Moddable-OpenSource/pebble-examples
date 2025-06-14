@@ -108,6 +108,7 @@ The APIs used here are a little rougher as the runtime simultaneously supports A
 ### Poco renderer- `hellopoco-gbitmap` – Renders bitmaps stored in `GBitmap` resources using Poco.
 - `hellopoco-text` – Example of rendering text with Poco using Moddable SDK fonts. Includes Japanese text to demonstrate UTF-8 multibyte support.
 - `hellopoco-pebbletext` – Example of rendering text with Poco using Pebble built-in fonts.
+- `hellopoco-pebblegraphics` – Use Pebble's line, round rectangle, and circle graphics operations.
 - `hellowatchface` – An example watchface app in JavaScript.
 
 ### Rocky
