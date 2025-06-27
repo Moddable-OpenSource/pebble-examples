@@ -1,5 +1,5 @@
 # Moddable SDK Examples for PebbleOS
-Updated June 13, 2025
+Updated June 27, 2025
 
 This repository hosts a collection of examples for working in Embedded JavaScript using the Moddable SDK on PebbleOS.
 
@@ -110,6 +110,12 @@ The APIs used here are a little rougher as the runtime simultaneously supports A
 - `hellopoco-pebbletext` – Example of rendering text with Poco using Pebble built-in fonts.
 - `hellopoco-pebblegraphics` – Use Pebble's line, round rectangle, and circle graphics operations.
 - `hellowatchface` – An example watchface app in JavaScript.
+
+#### PDC resources (SVG)
+- `hellopoco-pdc` – Renders PDC images.
+- `hellopoco-rotate` – Spins a PDC image.
+- `hellopoco-scale` – Animates a PDC image using image scaling controlled by the elastic easing equation.
+- `hellopoco-pdc-sequence` – Renders a continuous PDC image sequence (animation).
 
 ### Rocky
 
