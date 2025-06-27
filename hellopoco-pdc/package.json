@@ -1,0 +1,60 @@
+{
+  "name": "Hello, PDC.",
+  "author": "Moddable",
+  "version": "1.0.0",
+  "keywords": ["pebble-app"],
+  "private": true,
+  "dependencies": {},
+  "pebble": {
+    "displayName": "JS - PDC",
+    "uuid": "12471cb1-caf2-4925-a63c-f27e9eb9cfa3",
+    "sdkVersion": "3",
+    "enableMultiJS": true,
+    "targetPlatforms": [
+      "aplite",
+      "basalt",
+      "chalk",
+      "diorite"
+    ],
+    "watchapp": {
+      "watchface": false
+    },
+    "messageKeys": [
+      "dummy"
+    ],
+    "resources": {
+      "media": [
+		  {
+			"type": "raw",
+			"name": "MOD",
+			"file": "mods/mc.xsa"
+		  },
+		  {
+			"type": "raw",
+			"name": "incoming",
+			"file": "pdc/Pebble_80x80_Incoming_call_centered.pdc"
+		  },
+		  {
+			"type": "raw",
+			"name": "outgoing",
+			"file": "pdc/Pebble_80x80_Outgoing_call.pdc"
+		  },
+		  {
+			"type": "raw",
+			"name": "pay",
+			"file": "pdc/Pebble_80x80_Pay_bill.pdc"
+		  },
+		  {
+			"type": "raw",
+			"name": "event",
+			"file": "pdc/Pebble_80x80_Scheduled_event.pdc"
+		  },
+		  {
+			"type": "raw",
+			"name": "stocks",
+			"file": "pdc/Pebble_80x80_Stocks_event.pdc"
+		  }
+	  ]
+    }
+  }
+}
