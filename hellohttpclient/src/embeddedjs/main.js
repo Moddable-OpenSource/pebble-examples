@@ -7,6 +7,7 @@ setTimeout(() => {
 
 	http.request({
 		path: "/",
+		headersMask: ["date"],
 		headers: new Map([
 			["date", (new Date).toString()],
 			["user-agent", "pebble test"]

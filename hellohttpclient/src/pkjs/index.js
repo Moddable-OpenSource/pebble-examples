@@ -26,7 +26,7 @@ Pebble.addEventListener('appmessage', function (e) {
 	
 	switch (request.state) {
 		case "configure": {
-			const [protocol, method, host, port, path, bufferSize] = arrayToString(e.payload[2]).split(":");
+			const [protocol, method, host, port, path, bufferSize, headersMask] = arrayToString(e.payload[2]).split(":");
 			request.bufferSize = parseInt(bufferSize);
 			if ("/" === path)
 				request.path = "";
@@ -36,7 +36,8 @@ Pebble.addEventListener('appmessage', function (e) {
 			request.host = host;
 			request.protocol = protocol;
 			request.method = method;
-			
+			request.headersMask = headersMask ? headersMask.split(",") : "*";
+
 			request.state = "recieveHeaders";  
 			request.headers = "";
 			} break;
@@ -73,6 +74,7 @@ Pebble.addEventListener('appmessage', function (e) {
 			console.log(`  port: ${request.port}`);  
 			console.log(`  path: ${request.path}`);  
 			console.log(`  bufferSize: ${request.bufferSize}`);
+			console.log(`  headersMask: ${request.headersMask}`);
 			console.log(`  requestBody: ${request.requestBody.length} bytes`);
 			request.headers.split("\n").forEach(line => console.log("  " + line));
 
@@ -96,7 +98,12 @@ Pebble.addEventListener('appmessage', function (e) {
 					[11]: request.xhr.statusText
 				});
 
-				const headers = request.xhr.getAllResponseHeaders().split("\r\n").map(header => {
+				const headers = request.xhr.getAllResponseHeaders().split("\r\n").filter(header => {
+					if ("*" === request.headersMask)
+						return true;			// no mask, return all
+					header = header.split(":");
+					return request.headersMask.includes(header[0].trim().toLowerCase());
+				}).map(header => {
 					header = header.split(":");
 					header[0] = header[0].trim().toLowerCase();
 					header[1] = header[1].trim();
