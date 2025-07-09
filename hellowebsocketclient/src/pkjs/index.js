@@ -49,6 +49,7 @@ Pebble.addEventListener('appmessage', function (e) {
 
 //@@ use of subprotocol gives exception in pypkjs	request.ws = request.subprotocol ? new WebSocket(url, request.subprotocol) : new WebSocket(url);
 			request.ws = new WebSocket(url);
+			request.ws.binaryType = "arraybuffer";
 
 			request.ws.onopen = event => {
 				console.log("websocket conncted to host");
