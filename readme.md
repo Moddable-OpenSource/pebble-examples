@@ -1,11 +1,11 @@
 # Moddable SDK Examples for PebbleOS
-Updated June 27, 2025
+Updated July 8, 2025
 
 This repository hosts a collection of examples for working in Embedded JavaScript using the Moddable SDK on PebbleOS.
 
 ## Things you should know
 
-- JavaScript is precompiled at build time to bytecode into a mod. See the Moddable SDK [documentation on mods](https://www.moddable.com/documentation/xs/mods) for details.
+- JavaScript is precompiled at build time to bytecode and stored a mod. See the Moddable SDK [documentation on mods](https://www.moddable.com/documentation/xs/mods) for details.
 - The XS Mod is wrapped in a Pebble native application. The mod is stored as the first resource.
 - The `setup.sh` script in each example builds the mod with `mcrun` and then triggers the normal Pebble app build with `rebble`.
 - All JavaScript executes in [strict mode](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Strict_mode). You aren't still depending on sloppy mode?
@@ -125,12 +125,23 @@ The APIs used here are a little rougher as the runtime simultaneously supports A
 These examples are the most challenging to run because they communicate with PebbleKit JS. The `./setup` script has been modified to launch PebbleKit JS. This uses `rebble` which means `rebble` is unavailable to display logs from the watch (QEMU). There must be a solution for this....
 
 - `hellomessage` - An [ECMA-419 IO Class Pattern](https://419.ecma-international.org/#-9-io-class-pattern) style API to access Pebble's `app_message` API for communication between the watch and PebbleKit JS. 
-- `hellohttpclient` - Uses the standard [ECMA-419 HTTP Client](https://419.ecma-international.org/#-20-http-client-class-pattern) to make HTTP requests. The HTTP Client implementation uses `app_message` to communicate with PebbleKit JS which uses XMLHttpRequest to make the actual request.
+
+#### HTTP
+- `hellohttpclient` - Uses the standard [ECMA-419 HTTP Client](https://419.ecma-international.org/#-20-http-client-class-pattern) to make HTTP requests. The HTTP Client implementation uses `app_message` to communicate with PebbleKit JS which uses `XMLHttpRequest` to make the actual request.
 - `hellofetch` - Uses the [web standard `fetch()` API](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API) to make HTTP requests. The implementation is a subset of `fetch()`; specifically, it excludes features which require Web Streams. The `fetch()` implementation is built on the HTTP Client.
 
 > **Note 1**: For most developers, `fetch()` is the right API for HTTP requests. The httpclient API is more memory efficient because it supports sending the request body in fragments, receiving the response body in fragment, and uses callbacks instead of promises. Naturally, as a more powerful low level API it is less convenient to use.
 
 > **Note 2**: Copying the HTTP proxy for PebbleKit JS into each application is a bad idea. The HTTPClient proxy for PebbleKit JS should probably be rolled into an npm package so it can be managed and installed through the app's `package.json`: `@moddable/pkjs` on npm awaits!
+
+#### WebSocket
+
+- `hellowebsocketclient` - Uses the standard [ECMA-419 WebSocket Client](https://419.ecma-international.org/#-24-websocket-client-class-pattern) for WebSocket sessions. The WebSocket Client implementation uses `app_message` to communicate with PebbleKit JS which uses `WebSocket` to make the actual request.
+- `hellowebsocket` - Uses the [web standard `WebSocket()` API](https://developer.mozilla.org/en-US/docs/Web/API/WebSocket/WebSocket) for WebSocket sessions. The implementation is a subset of `WebSocket()`. The `WebSocket()` implementation is built on the WebSocket Client.
+
+> **Note 1**: For most developers, `WebSocket()` is the right API for WebSocket requests. The WebSocket Client API is more memory efficient because it supports sending the messages in fragments, receiving the messages in fragment, and uses callbacks instead of promises. Naturally, as a more powerful low level API it is less convenient to use.
+
+> **Note 2**: Copying the WebSocket proxy for PebbleKit JS into each application is a bad idea. The WebSocket proxy for PebbleKit JS should probably be rolled into an npm package so it can be managed and installed through the app's `package.json`: `@moddable/pkjs` on npm awaits!
 
 <a id="omitted"></a>
 ## Omitted JavaScript features
