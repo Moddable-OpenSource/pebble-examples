@@ -1,5 +1,5 @@
 # Moddable SDK Examples for PebbleOS
-Updated July 8, 2025
+Updated July 11, 2025
 
 This repository hosts a collection of examples for working in Embedded JavaScript using the Moddable SDK on PebbleOS.
 
@@ -15,7 +15,9 @@ This repository hosts a collection of examples for working in Embedded JavaScrip
 
 ## Getting started
 
-> **Note**: These instructions are for macOS only.
+> **Note 1**: These instructions are for macOS only.
+
+> **Note 2**: Builds currently use `rebble`. The intention is to migrate to `pebble`.
 
 - The Pebble build depends on a tool called `rebble`. Install that following their [instructions](https://github.com/richinfante/rebbletool?tab=readme-ov-file#setup).
 	- You don't need to do the steps after `rebble sdk install latest`
@@ -53,8 +55,6 @@ This repository hosts a collection of examples for working in Embedded JavaScrip
 
 	```console
 	(.env) hoddie@jphAir2022 hellopebble % rebble logs --qemu localhost:12344        
-	[15:46:30] xsHost.c:130> unimplemented: xSemaphoreCreateMutex
-	[15:46:30] xsHost.c:130> unimplemented: xQueueCreate
 	[15:46:30] xsHost.c:130> Found mod "hellopebble.moddable.tech"
 	[15:46:30] xsHost.c:130> Hello, Pebble.
 	```
@@ -142,6 +142,9 @@ These examples are the most challenging to run because they communicate with Peb
 > **Note 1**: For most developers, `WebSocket()` is the right API for WebSocket requests. The WebSocket Client API is more memory efficient because it supports sending the messages in fragments, receiving the messages in fragment, and uses callbacks instead of promises. Naturally, as a more powerful low level API it is less convenient to use.
 
 > **Note 2**: Copying the WebSocket proxy for PebbleKit JS into each application is a bad idea. The WebSocket proxy for PebbleKit JS should probably be rolled into an npm package so it can be managed and installed through the app's `package.json`: `@moddable/pkjs` on npm awaits!
+
+> **Note 3**: WebSockets is only available on the desktop using the version of `pypkjs` installed as part of `pebble`.
+
 
 <a id="omitted"></a>
 ## Omitted JavaScript features
