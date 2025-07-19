@@ -158,10 +158,10 @@ Pebble.addEventListener('appmessage', function (e) {
 				let total = 0;
 				request.pendingWrite.forEach(fragment => total += fragment.length);
 				let msg = new Uint8Array(total);
-				for (let i = 0, offset = 0; i < request.pendingWrite.length; offset += request.pendingWrite[i++].byteLength)
+				for (let i = 0, offset = 0; i < request.pendingWrite.length; offset += request.pendingWrite[i++].length)
 					msg.set(arrayToUint8Array(request.pendingWrite[i]), offset);
 				if (binary)
-					request.ws.send(msg.buffer);
+					request.ws.send(msg);
 				else
 					request.ws.send(arrayToString(msg));
 				delete request.pendingWrite;
