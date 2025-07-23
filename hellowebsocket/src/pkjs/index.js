@@ -52,7 +52,7 @@ Pebble.addEventListener('appmessage', function (e) {
 			request.ws.binaryType = "arraybuffer";
 
 			request.ws.onopen = event => {
-				console.log("websocket conncted to host");
+				console.log("websocket connected to host");
 				request.state = "connected";
 				request.messages = [];
 				request.messages.sending = false;
@@ -87,14 +87,14 @@ Pebble.addEventListener('appmessage', function (e) {
 				});
 			};
 			request.ws.onmessage = event => {
-				let data = event.data;
+				let data = event.data;		// either ArrayBuffer or String
+				if (data instanceof ArrayBuffer)
+					data = new Uint8Array(data);
 				const binary = "string" !== typeof data;
 				if  (binary)
-					data = Array.from(new Uint8Array(data));	// sendAppMessage wants an Array
+					data = Array.from(data);	// sendAppMessage wants an Array
 				else
 					data = stringToArray(data);		// sendAppMessage wants an Array
-
-				console.log("websocket onmessage - " + data.length + " bytes");
 
 				for (let position = 0, fragmentSize = request.bufferSize - 64 /* @@ */; position < data.length; position += fragmentSize) {
 					const fragment = data.slice(position, position + fragmentSize);
@@ -173,24 +173,24 @@ Pebble.addEventListener('appmessage', function (e) {
 			break;
 	}
 
-	for (let key in e.payload) {
-		console.log(key);
-		let value = e.payload[key];
-		if (Array.isArray(value)) { 
-			let tt = Uint8Array.from(value);
-			tt = String.fromCharCode(...tt);
-			console.log("binary: " + tt);
+	if (0) {
+		for (let key in e.payload) {
+			console.log(key);
+			let value = e.payload[key];
+			if (Array.isArray(value)) { 
+				let tt = Uint8Array.from(value);
+				tt = String.fromCharCode(...tt);
+				console.log("binary: " + tt);
+			}
+			else
+				console.log((typeof value) + ": " + value);
 		}
-		else
-			console.log((typeof value) + ": " + value);
 	}
 });
 
 function sendRequestMessage(request) {
-console.log("sendRequestMessage");
-	let msg = request.messages.shift();
 	Pebble.sendAppMessage(
-		msg,
+		request.messages.shift(),
 		function () {
 			if (request.messages.length)
 				sendRequestMessage(request);

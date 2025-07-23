@@ -2,14 +2,6 @@ console.log("hellohttpclient proxy running");
 
 const requests = new Map();
 
-function send() {
-  Pebble.sendAppMessage({
-    'RANDOM': (Math.random() * 1000000) | 0,
-    'DATE': Date(),
-    'COUNTER': ++counter
-  });
-}
-
 Pebble.addEventListener('ready', function (e) {
   console.log("httpclientproxy ready");
   request = {};
