@@ -8,11 +8,7 @@ const font = new render.Font("Bitham-Black", 30);
 const black = render.makeColor(0, 0, 0);
 const white = render.makeColor(255, 255, 255);
 
-rocky.on('secondchange', function() {
-	rocky.requestDraw();
-});
-
- rocky.on('draw', function() {
+function draw() {
 	render.begin();
 	render.fillRectangle(white, 0, 0, render.width, render.height);
 	
@@ -23,4 +19,6 @@ rocky.on('secondchange', function() {
 		(render.width - width) / 2, (render.height - font.height) / 2);
  
 	render.end();
- });
+}
+
+Pebble.addEventListener('secondchange', draw);
