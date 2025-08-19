@@ -15,7 +15,7 @@ let time = 0;
 function draw() {
 	render.begin();
 	render.fillRectangle(gray, 0, 0, render.width, render.height);	
-	render.drawDCI(dcs, (render.width - dcs.width) / 2, (render.height - dcs.height) / 2);
+	render.drawDCI(dcs, (render.width - dcs.width) >> 1, (render.height - dcs.height) >> 1);
 	render.end();
 
 	const frameDuration = dcs.frameDuration;

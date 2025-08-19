@@ -21,18 +21,18 @@ const textStyle = new Style({
 
 class GraphBehavior extends Behavior {
 	onDisplaying(port) {
-		this.values = new Array((screen.width / 15) | 0);
+		this.values = new Array(Math.idiv(screen.width, 16));
 		this.values.fill(0);
 		port.interval = 100;
 		port.start();
 	}
 	onTimeChanged(port) {
 		this.values.shift();
-		this.values.push(Math.random() * 100);
+		this.values.push(Math.irandom(100));
 		port.invalidate();
 	}
 	onDraw(port, x, y, width, height) {
-		for (let i = 100, yOffset = 0; yOffset < height; yOffset += height / 5, i -= 20) {
+		for (let i = 100, yOffset = 0, dy = Math.idiv(height, 5); yOffset < height; yOffset += dy, i -= 20) {
 			port.drawString(i, textStyle, "black", 30 - textStyle.measure(i).width, yOffset);
 			port.fillColor(GRAY, 35, yOffset + 10, width, 1);
 		}
@@ -41,7 +41,7 @@ class GraphBehavior extends Behavior {
 		const values = this.values;
 		for (let i = 0; i < values.length; i++) {
 			let value = values[i];
-			let barHeight = (value / 100) * (height - 10);
+			const barHeight = Math.idiv(value * (height - 10), 100);
 			port.fillColor(BLUE, xOffset, height - barHeight, 12, barHeight);
 			xOffset += 14;
 		}
