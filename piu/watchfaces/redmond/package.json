@@ -1,0 +1,42 @@
+{
+  "name": "redmond",
+  "author": "MakeAwesomeHappen",
+  "version": "1.0.0",
+  "keywords": ["pebble-app"],
+  "private": true,
+  "dependencies": {},
+  "pebble": {
+    "displayName": "redmond",
+    "uuid": "f3054675-cb43-416b-b723-27a540cd5dc3",
+    "projectType": "moddable",
+    "sdkVersion": "3",
+    "enableMultiJS": true,
+    "targetPlatforms": [
+      "aplite",
+      "basalt",
+      "chalk",
+      "diorite"
+    ],
+    "watchapp": {
+      "watchface": true
+    },
+    "messageKeys": [
+      "dummy"
+    ],
+    "resources": {
+      "media": [
+		  {
+			"type": "raw",
+			"name": "MOD",
+			"file": "mods/mc.xsa"
+		  },
+		  {
+			"menuIcon": true,
+			"type": "bitmap",
+			"name": "IMAGE_MENU_ICON",
+			"file": "img/icon.png"
+		  }
+	  ]
+    }
+  }
+}

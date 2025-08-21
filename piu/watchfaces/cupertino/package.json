@@ -1,0 +1,42 @@
+{
+  "name": "cupertino",
+  "author": "MakeAwesomeHappen",
+  "version": "1.0.0",
+  "keywords": ["pebble-app"],
+  "private": true,
+  "dependencies": {},
+  "pebble": {
+    "displayName": "cupertino",
+    "uuid": "feeec801-8551-4c28-9ecc-de7f56280995",
+    "projectType": "moddable",
+    "sdkVersion": "3",
+    "enableMultiJS": true,
+    "targetPlatforms": [
+      "aplite",
+      "basalt",
+      "chalk",
+      "diorite"
+    ],
+    "watchapp": {
+      "watchface": true
+    },
+    "messageKeys": [
+      "dummy"
+    ],
+    "resources": {
+      "media": [
+		  {
+			"type": "raw",
+			"name": "MOD",
+			"file": "mods/mc.xsa"
+		  },
+		  {
+			"menuIcon": true,
+			"type": "bitmap",
+			"name": "IMAGE_MENU_ICON",
+			"file": "img/icon.png"
+		  }
+	  ]
+    }
+  }
+}

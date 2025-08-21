@@ -1,0 +1,42 @@
+{
+  "name": "helsinki",
+  "author": "MakeAwesomeHappen",
+  "version": "1.0.0",
+  "keywords": ["pebble-app"],
+  "private": true,
+  "dependencies": {},
+  "pebble": {
+    "displayName": "helsinki",
+    "uuid": "e66ac1b8-f4c4-4f8f-9806-5ab4a83ece82",
+    "projectType": "moddable",
+    "sdkVersion": "3",
+    "enableMultiJS": true,
+    "targetPlatforms": [
+      "aplite",
+      "basalt",
+      "chalk",
+      "diorite"
+    ],
+    "watchapp": {
+      "watchface": true
+    },
+    "messageKeys": [
+      "dummy"
+    ],
+    "resources": {
+      "media": [
+		  {
+			"type": "raw",
+			"name": "MOD",
+			"file": "mods/mc.xsa"
+		  },
+		  {
+			"menuIcon": true,
+			"type": "bitmap",
+			"name": "IMAGE_MENU_ICON",
+			"file": "img/icon.png"
+		  }
+	  ]
+    }
+  }
+}
