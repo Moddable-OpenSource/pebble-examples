@@ -19,13 +19,13 @@ class FaceApplicationBehavior {
 		const hours = date.getHours();
 		const minutes = date.getMinutes();
 		let content = application.first;
-		content.variant = Math.floor(hours / 10);
+		content.variant = Math.idiv(hours, 10);
 		content = content.next;
 		content.variant = hours % 10;
 		content = content.next;
 		content.visible = !content.visible;
 		content = content.next;
-		content.variant = Math.floor(minutes / 10);
+		content.variant = Math.idiv(minutes, 10);
 		content = content.next;
 		content.variant = minutes % 10;
 		content = content.next;

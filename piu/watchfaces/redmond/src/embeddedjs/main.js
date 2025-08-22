@@ -5,9 +5,7 @@ class FaceApplicationBehavior {
 		this.clock = {};
 	}
 	onDisplaying(application) {
-		this.onTimeChanged(application);
-		application.interval = 500;
-		application.start();
+		Pebble.addEventListener('minutechange', () => this.onTimeChanged(application));
 	}
 	onTimeChanged(application) {
 		const date = new Date();
@@ -46,7 +44,7 @@ class FaceHoursBehavior extends FaceHandBehavior {
 		this.texture = new Texture(`hours.png`);
 	}
 	onClockChanged(content, clock) {
-		this.onIndexChanged(content, ((clock.hours % 12) * 5) + Math.floor(clock.minutes / 12));
+		this.onIndexChanged(content, ((clock.hours % 12) * 5) + Math.idiv(clock.minutes, 12));
 	}
 }
 
