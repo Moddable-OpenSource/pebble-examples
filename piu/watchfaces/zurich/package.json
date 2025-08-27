@@ -8,6 +8,7 @@
   "pebble": {
     "displayName": "zurich",
     "uuid": "d3b9c7af-64b5-4e29-af20-3cae7ca114f5",
+    "projectType": "moddable",
     "sdkVersion": "3",
     "enableMultiJS": true,
     "targetPlatforms": [
