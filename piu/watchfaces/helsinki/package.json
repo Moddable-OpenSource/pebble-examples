@@ -8,7 +8,6 @@
   "pebble": {
     "displayName": "helsinki",
     "uuid": "e66ac1b8-f4c4-4f8f-9806-5ab4a83ece82",
-    "projectType": "moddable",
     "sdkVersion": "3",
     "enableMultiJS": true,
     "targetPlatforms": [

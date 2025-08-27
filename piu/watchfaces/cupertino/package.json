@@ -8,7 +8,6 @@
   "pebble": {
     "displayName": "cupertino",
     "uuid": "feeec801-8551-4c28-9ecc-de7f56280995",
-    "projectType": "moddable",
     "sdkVersion": "3",
     "enableMultiJS": true,
     "targetPlatforms": [
