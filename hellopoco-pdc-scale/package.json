@@ -8,6 +8,7 @@
   "pebble": {
     "displayName": "JS - PDC Scale",
     "uuid": "12471cb1-caf2-4925-a63c-f27e9eb9cfa6",
+    "projectType": "moddable",
     "sdkVersion": "3",
     "enableMultiJS": true,
     "targetPlatforms": [

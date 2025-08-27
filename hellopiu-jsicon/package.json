@@ -8,6 +8,7 @@
   "pebble": {
     "displayName": "JS - Piu JS-Icon",
     "uuid": "12471cb1-caf2-4925-a63c-f27e9eb9cf6C",
+    "projectType": "moddable",
     "sdkVersion": "3",
     "enableMultiJS": true,
     "targetPlatforms": [
