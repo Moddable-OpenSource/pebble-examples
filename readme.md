@@ -1,5 +1,5 @@
 # Moddable SDK Examples for PebbleOS
-Updated July 11, 2025
+Updated September 8, 2025
 
 This repository hosts a collection of examples for working in Embedded JavaScript using the Moddable SDK on PebbleOS.
 
@@ -189,30 +189,19 @@ To work with Pebble bitmaps as textures,  `Texture`  extends the `path` property
 
 Pebble's built-in fonts may be used from both Piu and Poco. These fonts are currently available:
 
-| Family Name      | Style     | Size |
-|------------------|-----------|------|
-| Bitham           | Black     | 30   |
-| Bitham           | Bold      | 42   |
-| Bitham           | Light     | 42   |
-| Bitham           | Regular   | 34   |
-| Bitham           | Regular   | 42   |
-| Droid Serif      | Bold      | 28   |
-| Gothic           | Bold      | 14   |
-| Gothic           | Bold      | 18   |
-| Gothic           | Bold      | 24   |
-| Gothic           | Bold      | 28   |
-| Gothic           | Regular   | 14   |
-| Gothic           | Regular   | 18   |
-| Gothic           | Regular   | 24   |
-| Gothic           | Regular   | 28   |
-| Leco             | Bold      | 20   |
-| Leco             | Bold      | 26   |
-| Leco             | Bold      | 32   |
-| Leco             | Bold      | 36   |
-| Leco             | Bold      | 38   |
-| Leco             | Bold      | 42   |
-| Leco             | Light     | 28   |
-| Roboto           | Bold      | 49   |
-| Roboto           | Condensed | 21   |
+| Family Name       | Style     | Sizes           |
+|-------------------|-----------|-----------------|
+| Bitham            | Black     | 30              |
+| Bitham            | Bold      | 42              |
+| Bitham            | Light     | 18, 34, 42      |
+| Bitham            | Medium    | 34, 42          |
+| Droid Serif       | Bold      | 28              |
+| Gothic            | Bold      | 14, 18, 24, 28, 36 |
+| Gothic            | Regular   | 9, 14, 18, 24, 28, 36 |
+| Leco              | Bold      | 20, 26, 32, 36, 38 |
+| Leco              | Light     | 28              |
+| Leco              | Regular   | 42              |
+| Roboto            | Bold      | 49              |
+| Roboto Condensed  | Regular   | 21              |
 
-> **Note**: Some built-in fonts, such as Leco, provide only a subset of glyphs.
+> **Note**: Some built-in fonts, such as Leco, include only a subset of glyphs.
