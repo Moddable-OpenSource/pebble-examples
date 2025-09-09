@@ -95,6 +95,10 @@ All sensors modules follow the [Sensor Class Pattern API](https://419.ecma-inter
 
 > **Note**: The compass has also been implemented but there's not currently a good way to test that, so it is not included here.
 
+### Pebble System
+
+- `helloconnected` – Subscribes to the notification that indicates when the watch is connected to the phone app and its PebbleKit JS app.
+
 ### User experience
 The APIs used here are a little rougher as the runtime simultaneously supports APIs from RockyJS, Pebble native graphics, and Moddable's Poco. This will get ironed out.
 
@@ -117,9 +121,11 @@ The APIs used here are a little rougher as the runtime simultaneously supports A
 - `hellopoco-scale` – Animates a PDC image using image scaling controlled by the elastic easing equation.
 - `hellopoco-pdc-sequence` – Renders a continuous PDC image sequence (animation).
 
+<!--
 ### Rocky
 
 - `hellorocky` – The classic RockyJS watchface demo. Enhanced to change display modes with the Select button.
+-->
 
 ### Communication
 These examples are the most challenging to run because they communicate with PebbleKit JS. The `./setup` script has been modified to launch PebbleKit JS. This uses `rebble` which means `rebble` is unavailable to display logs from the watch (QEMU). There must be a solution for this....
