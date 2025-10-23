@@ -8,7 +8,7 @@
 		],
 		"*-alpha": [
 			{
-				"source": "$(MODDABLE)/examples/assets/scalablefonts/FiraMono/FiraMono-Medium",
+				"source": "./FiraMono-Medium",
 				"size": 16,
 				"monochrome": true,
 				"characters": "0123456789-SUNMONTUEWEDTHUFRISAT"
