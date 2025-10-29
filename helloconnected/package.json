@@ -7,6 +7,7 @@
   "dependencies": {},
   "pebble": {
     "displayName": "JS Connected",
+    "projectType": "moddable",
     "uuid": "12471cb1-caf2-4925-a63c-00009eb9cf50",
     "sdkVersion": "3",
     "enableMultiJS": true,
