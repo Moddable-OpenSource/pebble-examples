@@ -1,7 +1,7 @@
 import Battery from "embedded:sensor/Battery"
 
 console.log("hello, battery started");
-console.log("  > rebble emu-battery --percent 20 --charging --qemu localhost:12344");
+console.log("  > pebble emu-battery --percent 20 --charging --qemu localhost:12344");
 
 const battery = new Battery({
 	onSample() {
