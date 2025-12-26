@@ -23,8 +23,8 @@ const rightStyle = new Style({ horizontal:"right" });
 const justifyStyle = new Style({ horizontal:"justify" });
 const absoluteLeadingStyle = new Style({ horizontal:"left", leading:30 });
 const relativeLeadingStyle = new Style({ horizontal:"left", leading:-80 });
-const otherStyle = new Style({ font:"black 30px Bitham", color:["blue","red"] });
-const redStyle = new Style({ color:["red","blue"] });
+const otherStyle = new Style({ font:"black 30px Bitham", color:Pebble.color ? ["blue","red"] : ["black","black"] });
+const redStyle = new Style({ color: Pebble.color ? ["red","blue"] : ["black","black"]});
 
 const styles = [ centerStyle, leftStyle, rightStyle, justifyStyle, absoluteLeadingStyle, relativeLeadingStyle ];
 
