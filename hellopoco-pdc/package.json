@@ -11,9 +11,10 @@
     "projectType": "moddable",
     "sdkVersion": "3",
     "enableMultiJS": true,
-    "targetPlatforms": [
-      "flint"
-    ],
+		"targetPlatforms": [
+			"emery",
+			"flint"
+		],
     "watchapp": {
       "watchface": false
     },
@@ -22,11 +23,6 @@
     ],
     "resources": {
       "media": [
-		  {
-			"type": "raw",
-			"name": "MOD",
-			"file": "mods/mc.xsa"
-		  },
 		  {
 			"type": "raw",
 			"name": "incoming",

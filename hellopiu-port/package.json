@@ -12,6 +12,7 @@
     "sdkVersion": "3",
     "enableMultiJS": true,
     "targetPlatforms": [
+      "emery",
       "flint"
     ],
     "watchapp": {
@@ -22,12 +23,7 @@
     ],
     "resources": {
       "media": [
-		  {
-			"type": "raw",
-			"name": "MOD",
-			"file": "mods/mc.xsa"
-		  }
-	  ]
+    ]
     }
   }
 }
