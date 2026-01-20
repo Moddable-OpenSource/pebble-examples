@@ -1,5 +1,7 @@
 console.log("hellohttpclient proxy running");
 
+const BASE = 0;
+
 const requests = new Map();
 
 Pebble.addEventListener('ready', function (e) {
@@ -9,7 +11,7 @@ Pebble.addEventListener('ready', function (e) {
 Pebble.addEventListener('appmessage', function (e) {
 	console.log("httpclientproxy appmessage received");
 
-	const id = e.payload[1];
+	const id = e.payload[BASE + 1];
 	console.log("   connection: " + id);
 	
 	if (!requests.has(id))
@@ -18,7 +20,7 @@ Pebble.addEventListener('appmessage', function (e) {
 	
 	switch (request.state) {
 		case "configure": {
-			const [protocol, method, host, port, path, bufferSize, headersMask] = arrayToString(e.payload[2]).split(":");
+			const [protocol, method, host, port, path, bufferSize, headersMask] = arrayToString(e.payload[BASE + 2]).split(":");
 			request.bufferSize = parseInt(bufferSize);
 			if ("/" === path)
 				request.path = "";
@@ -35,8 +37,8 @@ Pebble.addEventListener('appmessage', function (e) {
 			} break;
 
 		case "recieveHeaders":
-			if (e.payload[3]) {
-				request.headers += arrayToString(e.payload[3]);
+			if (e.payload[BASE + 3]) {
+				request.headers += arrayToString(e.payload[BASE + 3]);
 				break;
 			}
 			request.requestBody = new Uint8Array(0);
@@ -44,8 +46,8 @@ Pebble.addEventListener('appmessage', function (e) {
 			// deliberate fall through
 
 		case "receiveBody":
-			if (e.payload[4]) {
-				const fragment = arrayToUint8Array(e.payload[4]);
+			if (e.payload[BASE + 4]) {
+				const fragment = arrayToUint8Array(e.payload[BASE + 4]);
 				const requestBody = new Uint8Array(fragment.length + request.requestBody.length);
 				requestBody.set(request.requestBody);
 				requestBody.set(fragment, request.requestBody.length);;
@@ -56,7 +58,7 @@ Pebble.addEventListener('appmessage', function (e) {
 			// deliberate fall through
 
 		case "makeRequest": {
-			if (!e.payload[5])
+			if (!e.payload[BASE + 5])
 				throw new Error("expected property missing");
 
 			console.log("make the request")
@@ -85,9 +87,9 @@ Pebble.addEventListener('appmessage', function (e) {
 				request.messages = [];
 
 				request.messages.push({
-					[1]: request.id,
-					[6]: request.xhr.status,
-					[11]: request.xhr.statusText
+					[BASE + 1]: request.id,
+					[BASE + 6]: request.xhr.status,
+					[BASE + 11]: request.xhr.statusText
 				});
 
 				const headers = request.xhr.getAllResponseHeaders().split("\r\n").filter(header => {
@@ -104,21 +106,21 @@ Pebble.addEventListener('appmessage', function (e) {
 				for (let position = 0, fragmentSize = request.bufferSize - 32 /* @@ */; position < headers.length; position += fragmentSize) {
 					const fragment = headers.slice(position, position + fragmentSize);
 					request.messages.push({
-						[1]: request.id,
-						[7]: fragment
+						[BASE + 1]: request.id,
+						[BASE + 7]: fragment
 					});
 				}
 
 				for (let position = 0, response = new Uint8Array(request.xhr.response), fragmentSize = request.bufferSize - 32 /* @@ */; position < response.byteLength; position += fragmentSize) {
 					const fragment = response.slice(position, position + fragmentSize);
 					request.messages.push({
-						[1]: request.id,
-						[8]: Array.from(fragment)		// sendAppMessage won't accept ArrayBuffer or Uint8Array. only Array.
+						[BASE + 1]: request.id,
+						[BASE + 8]: Array.from(fragment)		// sendAppMessage won't accept ArrayBuffer or Uint8Array. only Array.
 					});
 				}
 				request.messages.push({
-					[1]: request.id,
-					[9]: 0						// done. success.
+					[BASE + 1]: request.id,
+					[BASE + 9]: 0						// done. success.
 				});
 				request.state = "sendMessages";
 				
@@ -127,8 +129,8 @@ Pebble.addEventListener('appmessage', function (e) {
 			request.xhr.onerror = function () {
 				console.log("ON error!!!!")
 				Pebble.sendAppMessage({
-					[1]: request.id,
-					[9]: -1						// done. failure.
+					[BASE + 1]: request.id,
+					[BASE + 9]: -1						// done. failure.
 				});
 			}
 			if (request.requestBody.length)
@@ -169,8 +171,8 @@ function sendRequestMessage(request) {
 			console.log("message send FAILED");
 
 			Pebble.sendAppMessage({
-				[1]: request.id,
-				[9]: -1						// done. failure.
+				[BASE + 1]: request.id,
+				[BASE + 9]: -1						// done. failure.
 			});
 		}
 	);

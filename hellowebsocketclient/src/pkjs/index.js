@@ -1,5 +1,7 @@
 console.log("hellowebsocketclient proxy running");
 
+const BASE = 0;
+
 const requests = new Map();
 
 Pebble.addEventListener('ready', function (e) {
@@ -9,7 +11,7 @@ Pebble.addEventListener('ready', function (e) {
 Pebble.addEventListener('appmessage', function (e) {
 	console.log("websocketclient proxy appmessage received");
 
-	const id = e.payload[1];
+	const id = e.payload[BASE + 1];
 	console.log("   connection: " + id);
 
 	if (!requests.has(id))
@@ -18,7 +20,7 @@ Pebble.addEventListener('appmessage', function (e) {
 	
 	switch (request.state) {
 		case "configure": {
-			const [protocol, subprotocol, host, port, path, bufferSize] = arrayToString(e.payload[2]).split(":");
+			const [protocol, subprotocol, host, port, path, bufferSize] = arrayToString(e.payload[BASE + 2]).split(":");
 			request.bufferSize = parseInt(bufferSize);
 			if ("/" === path)
 				request.path = "";
@@ -57,16 +59,16 @@ Pebble.addEventListener('appmessage', function (e) {
 				request.messages = [];
 				request.messages.sending = false;
 				Pebble.sendAppMessage({
-					[1]: request.id,
-					[2]: 0						// connected. success.
+					[BASE + 1]: request.id,
+					[BASE + 2]: 0						// connected. success.
 				});
 			};
 			request.ws.onerror = event => {
 				console.log("websocket connection failed");
 				request.state = "error";
 				Pebble.sendAppMessage({
-					[1]: request.id,
-					[3]: -1						// disconnected error.
+					[BASE + 1]: request.id,
+					[BASE + 3]: -1						// disconnected error.
 				});
 			};
 			request.ws.onclose = event => {
@@ -81,9 +83,9 @@ Pebble.addEventListener('appmessage', function (e) {
 				if (reason.byteLength)
 					bytes.set(arrayToUint8Array(reason.slice(2)), 2);
 				Pebble.sendAppMessage({
-					[1]: request.id,
-					[3]: 0,						// disconnected clean.
-					[10]: Array.from(bytes)		// sendAppMessage wants an Array
+					[BASE + 1]: request.id,
+					[BASE + 3]: 0,						// disconnected clean.
+					[BASE + 10]: Array.from(bytes)		// sendAppMessage wants an Array
 				});
 			};
 			request.ws.onmessage = event => {
@@ -102,8 +104,8 @@ Pebble.addEventListener('appmessage', function (e) {
 					const part = (binary ? 4 : 6) + (more ? 1 : 0);
 
 					request.messages.push({
-						[1]: request.id,
-						[part]: data
+						[BASE + 1]: request.id,
+						[BASE + part]: data
 					});
 				}
 				
@@ -117,27 +119,27 @@ Pebble.addEventListener('appmessage', function (e) {
 			if (!request.pendingWrite)
 				request.pendingWrite = [];
 	
-			if (e.payload[4]) {	// binary no more
-				request.pendingWrite.push(e.payload[4]);
+			if (e.payload[BASE + 4]) {	// binary no more
+				request.pendingWrite.push(e.payload[BASE + 4]);
 				binary = true;
 			}
-			else if (e.payload[5])	// binary more
-				request.pendingWrite.push(e.payload[5]);
-			else if (e.payload[6]) {	// text no more
-				request.pendingWrite.push(e.payload[6]);
+			else if (e.payload[BASE + 5])	// binary more
+				request.pendingWrite.push(e.payload[BASE + 5]);
+			else if (e.payload[BASE + 6]) {	// text no more
+				request.pendingWrite.push(e.payload[BASE + 6]);
 				binary = false;
 			}
-			else if (e.payload[7])	// text more
-				request.pendingWrite.push(e.payload[7]);
-			else if (e.payload[8]) {	// close
+			else if (e.payload[BASE + 7])	// text more
+				request.pendingWrite.push(e.payload[BASE + 7]);
+			else if (e.payload[BASE + 8]) {	// close
 				request.state = "closing";
-				const bytes = arrayToUint8Array(e.payload[8]);
+				const bytes = arrayToUint8Array(e.payload[BASE + 8]);
 				let code, reason;
 				if (bytes.byteLength >= 2) {
 					code = (new DataView(bytes.buffer)).getInt16(0, false);
 					console.log(`code ${code}`);
 					if (bytes.byteLength > 2) {
-						reason = arrayToString(e.payload[8].slice(2));
+						reason = arrayToString(e.payload[BASE + 8].slice(2));
 						console.log(`reason ${reason}`);
 					}
 				}
@@ -201,8 +203,8 @@ function sendRequestMessage(request) {
 			console.log("message send FAILED " + JSON.stringify(e));
 
 			Pebble.sendAppMessage({
-				[1]: request.id,
-				[3]: -1						// done. failure.
+				[BASE + 1]: request.id,
+				[BASE + 3]: -1						// done. failure.
 			});
 		}
 	);
