@@ -9,7 +9,7 @@ const gray = render.makeColor(128, 128, 128);
 let index = 0;
 setInterval(() => {
 	index = (index + 1) % 5;
-	const dci = new Poco.PebbleDrawCommandImage(2 + index);
+	const dci = new Poco.PebbleDrawCommandImage(1 + index);
 	render.begin();
 	render.fillRectangle(gray, 0, 0, render.width, render.height);
 	render.drawDCI(dci, (render.width - dci.width) / 2, (render.height - dci.height) / 2);
