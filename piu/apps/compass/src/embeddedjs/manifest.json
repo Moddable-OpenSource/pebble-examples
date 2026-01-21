@@ -1,0 +1,16 @@
+{
+	"defines": {
+		"cfe": { "kern": true }
+	},
+	"modules": {
+		"*": "./main"
+	},
+	"resources":{
+		"*": [
+			"./compass"
+		],
+		"*-alpha": [
+			"./dot"
+		]
+	}
+}
