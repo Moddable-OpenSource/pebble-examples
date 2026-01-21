@@ -1,35 +1,34 @@
 {
-  "name": "zurich",
-  "author": "MakeAwesomeHappen",
-  "version": "1.0.0",
-  "keywords": ["pebble-app"],
-  "private": true,
-  "dependencies": {},
-  "pebble": {
-    "displayName": "zurich",
-    "uuid": "d3b9c7af-64b5-4e29-af20-3cae7ca114f5",
-    "projectType": "moddable",
-    "sdkVersion": "3",
-    "enableMultiJS": true,
-    "targetPlatforms": [
-      "emery",
-      "flint"
-    ],
-    "watchapp": {
-      "watchface": true
-    },
-    "messageKeys": [
-      "dummy"
-    ],
-    "resources": {
-      "media": [
-      {
-      "menuIcon": true,
-      "type": "bitmap",
-      "name": "IMAGE_MENU_ICON",
-      "file": "img/icon.png"
-      }
-    ]
-    }
-  }
+	"name": "zurich",
+	"author": "moddable.tech",
+	"version": "1.0.0",
+	"keywords": [
+		"pebble-app"
+	],
+	"private": true,
+	"dependencies": {
+		
+	},
+	"pebble": {
+		"displayName": "zurich",
+		"uuid": "12471cb1-caf2-4925-a63c-f27e9eb9cf6D",
+		"projectType": "moddable",
+		"sdkVersion": "3",
+		"enableMultiJS": true,
+		"targetPlatforms": [
+			"flint",
+			"basalt"
+		],
+		"watchapp": {
+			"watchface": true
+		},
+		"messageKeys": [
+			"dummy"
+		],
+		"resources": {
+			"media": [
+				
+			]
+		}
+	}
 }

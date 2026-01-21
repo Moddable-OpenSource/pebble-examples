@@ -1,8 +1,16 @@
-const blackSkin = new Skin({ fill:"black" });
-const digitsSkin = new Skin({ texture: new Texture(`digits.png`), width:24, height:40, variants:24 });
+const skins = Pebble.color
+? {
+	background:new Skin({ fill:"#005500" }),
+	bar:new Skin({ fill:"#AAFFAA" }),
+	digits:new Skin({ texture: new Texture(`digits.png`), width:24, height:40, variants:24, color:"#55FF55" }),
+}
+: {
+	background:new Skin({ fill:"black" }),
+	bar:new Skin({ fill:"white" }),
+	digits:new Skin({ texture: new Texture(`digits.png`), width:24, height:40, variants:24, color:"white" }),
+}
 const dateStyle = new Style({ font:"bold 14px Gothic", color:"black" });
 const days = Object.freeze([ "SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT" ]); 
-const whiteSkin = new Skin({ fill:"white" });
 
 class FaceApplicationBehavior {
 	onCreate(application, $) {
@@ -36,16 +44,20 @@ class FaceApplicationBehavior {
 }
 
 const FaceApplication = Application.template($ => ({
-	Behavior:FaceApplicationBehavior, skin:blackSkin,
+	left:0, right:0, top:0, bottom:0, skin:$.background, Behavior:FaceApplicationBehavior,
 	contents: [
-		Content($, { left:6, skin:digitsSkin }),
-		Content($, { left:36, skin:digitsSkin }),
-		Content($, { left:60, skin:digitsSkin, variant:10 }),
-		Content($, { left:84, skin:digitsSkin }),
-		Content($, { left:114, skin:digitsSkin }),
-		Label($, { left:0, right:0, top:0, skin:whiteSkin, style:dateStyle, string:"WEDNESDAY" }),
-		Label($, { left:0, right:0, bottom:0, skin:whiteSkin, style:dateStyle, string:"2025-06-11" }),
+		Content($, { left:6, skin:$.digits }),
+		Content($, { left:36, skin:$.digits }),
+		Content($, { left:60, skin:$.digits, variant:10 }),
+		Content($, { left:84, skin:$.digits }),
+		Content($, { left:114, skin:$.digits }),
+		Label($, { left:0, right:0, top:0, skin:$.bar, style:dateStyle, string:"WEDNESDAY" }),
+		Label($, { left:0, right:0, bottom:0, skin:$.bar, style:dateStyle, string:"2025-06-11" }),
 	]
 }));
 
-export default new FaceApplication({}, { displayListLength:2048, touchCount:0, pixels: screen.width * 4,  });
+export default new FaceApplication(skins, { 
+	displayListLength:2048, 
+	touchCount:0, 
+	pixels: screen.width * 4,
+});

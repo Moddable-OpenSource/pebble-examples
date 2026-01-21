@@ -1,4 +1,18 @@
-const dialSkin = new Skin({ texture: new Texture(`dial.png`), width:144, height:168 });
+const model = Pebble.color
+? {
+	background:"#AAAAFF",
+	frame:"#000055",
+	face:"#FFFFFF",
+	hours:"#0000AA",
+	minutes:"#0000AA",
+}
+: {
+	background:"gray",
+	frame:"black",
+	face:"white",
+	hours:"black",
+	minutes:"black",
+}
 
 class FaceApplicationBehavior {
 	onCreate(application, $) {
@@ -29,7 +43,7 @@ class FaceHandBehavior {
 		const sh = data[index+3];
 		const sx = data[index+4];
 		const sy = data[index+5];
-		content.skin = new Skin({ texture:this.texture, x:sx, y:sy, width:sw, height:sh, color:"black" });
+		content.skin = new Skin({ texture:this.texture, x:sx, y:sy, width:sw, height:sh, color:this.color });
 		const container = content.container;
 		content.x = container.x + (container.width >> 1) - x;
 		content.y = container.y + (container.height >> 1) - y;
@@ -39,8 +53,9 @@ class FaceHandBehavior {
 }
 
 class FaceHoursBehavior extends FaceHandBehavior {
-	onCreate(content) {
+	onCreate(content, $) {
 		this.data = new Int16Array(new Resource("hours.data"));
+		this.color = $.hours;
 		this.texture = new Texture(`hours.png`);
 	}
 	onClockChanged(content, clock) {
@@ -49,8 +64,9 @@ class FaceHoursBehavior extends FaceHandBehavior {
 }
 
 class FaceMinutesBehavior extends FaceHandBehavior {
-	onCreate(content) {
+	onCreate(content, $) {
 		this.data = new Int16Array(new Resource("minutes.data"));
+		this.color = $.minutes;
 		this.texture = new Texture(`minutes.png`);
 	}
 	onClockChanged(content, clock) {
@@ -59,16 +75,17 @@ class FaceMinutesBehavior extends FaceHandBehavior {
 }
 
 const FaceApplication = Application.template($ => ({
-	left:0, right:0, top:0, bottom:0, Behavior:FaceApplicationBehavior,
+	left:0, right:0, top:0, bottom:0, skin:new Skin({ fill:$.background }), Behavior:FaceApplicationBehavior,
 	contents: [
-		Container($, { 
-			skin: dialSkin,
-			contents: [
-				Content($, { Behavior: FaceHoursBehavior, left:0, width:144, top:0, height:168 }),
-				Content($, { Behavior: FaceMinutesBehavior, left:0, width:144, top:0, height:168 }),
-			]
-		}),
+		Content($, { skin: new Skin({ texture: new Texture(`frame.png`), color:$.frame, width:144, height:168 }) }),
+		Content($, { skin: new Skin({ texture: new Texture(`face.png`), color:$.face, width:96, height:96 }) }),
+		Content($, { Behavior: FaceHoursBehavior, left:0, width:144, top:0, height:168 }),
+		Content($, { Behavior: FaceMinutesBehavior, left:0, width:144, top:0, height:168 }),
 	]
 }));
 
-export default new FaceApplication(null, { displayListLength:2048, touchCount:0, pixels: screen.width * 4,  });
+export default new FaceApplication(model, { 
+	displayListLength:2048, 
+	touchCount:0, 
+	pixels: screen.width * 4,
+});

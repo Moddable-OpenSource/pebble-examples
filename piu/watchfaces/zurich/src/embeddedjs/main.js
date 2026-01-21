@@ -1,4 +1,14 @@
-const dialSkin = new Skin({ texture: new Texture(`dial.png`), width:144, height:168 });
+const model = Pebble.color
+? {
+	background:"gray",
+	frame:"black",
+	face:"white",
+}
+: {
+	background:"gray",
+	frame:"black",
+	face:"white",
+}
 
 class FaceApplicationBehavior {
 	onCreate(application, $) {
@@ -15,60 +25,70 @@ class FaceApplicationBehavior {
 		this.clock.day = date.getDay();
 		this.clock.hours = date.getHours();
 		this.clock.minutes = date.getMinutes();
+		this.clock.seconds = date.getSeconds();
 		application.distribute("onClockChanged", this.clock);
 	}
 }
 
 class FaceHandBehavior {
-	onIndexChanged(content, index) {
-		const data = this.data;
-		index *= 6;
-		const x = data[index];
-		const y = data[index+1];
-		const sw = data[index+2];
-		const sh = data[index+3];
-		const sx = data[index+4];
-		const sy = data[index+5];
-		content.skin = new Skin({ texture:this.texture, x:sx, y:sy, width:sw, height:sh, color:"black" });
-		const container = content.container;
-		content.x = container.x + (container.width >> 1) - x;
-		content.y = container.y + (container.height >> 1) - y;
-		content.width = sw;
-		content.height = sh;
+	onFractionChanged(content, fraction) {
+		const angle = ((-fraction * 2) - 1) * Math.PI;
+		content.r = angle;
 	}
 }
 
 class FaceHoursBehavior extends FaceHandBehavior {
-	onCreate(content) {
-		this.data = new Int16Array(new Resource("hours.data"));
-		this.texture = new Texture(`hours.png`);
+	onDisplaying(content) {
+		content.cx = 7;
+		content.cy = 22;
+		content.s = 144 / 240;
 	}
 	onClockChanged(content, clock) {
-		this.onIndexChanged(content, ((clock.hours % 12) * 5) + Math.idiv(clock.minutes, 12));
+		this.onFractionChanged(content, (clock.hours % 12 + clock.minutes / 60) / 12);
 	}
 }
 
 class FaceMinutesBehavior extends FaceHandBehavior {
-	onCreate(content) {
-		this.data = new Int16Array(new Resource("minutes.data"));
-		this.texture = new Texture(`minutes.png`);
+	onDisplaying(content) {
+		content.cx = 7;
+		content.cy = 22;
+		content.s = 144 / 240;
 	}
 	onClockChanged(content, clock) {
-		this.onIndexChanged(content, clock.minutes);
+		this.onFractionChanged(content, clock.minutes / 60);
+	}
+}
+
+class FaceSecondsBehavior extends FaceHandBehavior {
+	onDisplaying(content) {
+		content.cx = 12;
+		content.cy = 30;
+		content.s = 144 / 240;
+		content.duration = 60000;
+	}
+	onClockChanged(content, clock) {
+		content.stop();
+		content.time = clock.seconds * 1000;
+		content.start();
+	}
+	onTimeChanged(content) {
+		this.onFractionChanged(content, content.fraction);
 	}
 }
 
 const FaceApplication = Application.template($ => ({
-	Behavior:FaceApplicationBehavior,
+	left:0, right:0, top:0, bottom:0, skin:new Skin({ fill:$.background }), Behavior:FaceApplicationBehavior,
 	contents: [
-		Container($, { 
-			skin: dialSkin,
-			contents: [
-				Content($, { Behavior: FaceHoursBehavior, left:0, width:144, top:0, height:168 }),
-				Content($, { Behavior: FaceMinutesBehavior, left:0, width:144, top:0, height:168 }),
-			]
-		}),
+		Content($, { skin: new Skin({ texture: new Texture(`face.png`), width:144, height:144, color:$.face }) }),
+		Content($, { skin: new Skin({ texture: new Texture(`frame.png`), width:144, height:144, color:$.frame }) }),
+		SVGImage($, { left:65, width:14, top:62, height:87, path:`hours.pdc`, Behavior:FaceHoursBehavior }),
+		SVGImage($, { left:65, width:14, top:62, height:120,  path:`minutes.pdc`, Behavior:FaceMinutesBehavior }),
+		Pebble.color ? SVGImage($, { left:60, width:24, top:54, height:104,  path:`seconds.pdc`, Behavior:FaceSecondsBehavior }) : null,
 	]
 }));
 
-export default new FaceApplication(null, { displayListLength:2048, touchCount:0, pixels: screen.width * 4,  });
+export default new FaceApplication(model, { 
+	displayListLength:2048, 
+	touchCount:0, 
+	pixels: screen.width * 4,
+});

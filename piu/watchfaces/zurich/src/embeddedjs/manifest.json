@@ -1,21 +1,19 @@
 {
-	"include":  [
-		"$(MODDABLE)/examples/manifest_mod.json"
-	],
+	"config": {
+		"watchface": true
+	},
 	"modules": {
 		"*": "./main.js"
 	},
-	"data": {
-		"hours": "./hours.data",
-		"minutes": "./minutes.data"
-	},
 	"resources": {
-		"*-alpha": [
+		"*": [
 			"./hours",
-			"./minutes"
+			"./minutes",
+			"./seconds"
 		],
-		"*-color": [
-			"./dial"
+		"*-alpha": [
+			"./face",
+			"./frame"
 		]
 	}
 }

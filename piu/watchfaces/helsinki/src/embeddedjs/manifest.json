@@ -1,17 +1,15 @@
 {
-	"include":  [
-		"$(MODDABLE)/examples/manifest_mod.json"
-	],
+	"config": {
+		"watchface": true
+	},
 	"modules": {
 		"*": "./main.js"
 	},
 	"resources": {
-		"*-color": [
-			"./digits"
-		],
 		"*-alpha": [
+			"./digits",
 			{
-				"source": "./FiraMono-Medium",
+				"source": "$(MODDABLE)/examples/assets/scalablefonts/FiraMono/FiraMono-Medium",
 				"size": 16,
 				"monochrome": true,
 				"characters": "0123456789-SUNMONTUEWEDTHUFRISAT"

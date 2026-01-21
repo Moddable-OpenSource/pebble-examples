@@ -1,35 +1,34 @@
 {
-  "name": "cupertino",
-  "author": "MakeAwesomeHappen",
-  "version": "1.0.0",
-  "keywords": ["pebble-app"],
-  "private": true,
-  "dependencies": {},
-  "pebble": {
-    "displayName": "cupertino",
-    "uuid": "feeec801-8551-4c28-9ecc-de7f56280995",
-    "projectType": "moddable",
-    "sdkVersion": "3",
-    "enableMultiJS": true,
-    "targetPlatforms": [
-      "emery",
-      "flint"
-    ],
-    "watchapp": {
-      "watchface": true
-    },
-    "messageKeys": [
-      "dummy"
-    ],
-    "resources": {
-      "media": [
-		  {
-			"menuIcon": true,
-			"type": "bitmap",
-			"name": "IMAGE_MENU_ICON",
-			"file": "img/icon.png"
-		  }
-	  ]
-    }
-  }
+	"name": "cupertino",
+	"author": "moddable.tech",
+	"version": "1.0.0",
+	"keywords": [
+		"pebble-app"
+	],
+	"private": true,
+	"dependencies": {
+		
+	},
+	"pebble": {
+		"displayName": "cupertino",
+		"uuid": "12471cb1-caf2-4925-a63c-f27e9eb9cf6D",
+		"projectType": "moddable",
+		"sdkVersion": "3",
+		"enableMultiJS": true,
+		"targetPlatforms": [
+			"flint",
+			"basalt"
+		],
+		"watchapp": {
+			"watchface": true
+		},
+		"messageKeys": [
+			"dummy"
+		],
+		"resources": {
+			"media": [
+				
+			]
+		}
+	}
 }
