@@ -24,14 +24,12 @@ const message = new Message({
 		console.log("on writable");
 		if (this.once)
 			return;
-			
+
 		this.once = true;
-		setTimeout(() => {		//@@ for some reason, if write immediately on initial onWritable, the phone JavaScript doesn't see it. so... wait...
-			const m = new Map;
-			m.set("COUNTER", 1000);
-			this.write(m);
-			console.log("wrote!");
-		}, 100);
+		const m = new Map;
+		m.set("COUNTER", 1000);
+		this.write(m);
+		console.log("wrote!");
 	},
 	onSuspend() {
 		console.log("suspended")
