@@ -17,7 +17,7 @@
 		"enableMultiJS": true,
 		"targetPlatforms": [
 			"flint",
-			"basalt"
+			"emery"
 		],
 		"watchapp": {
 			"watchface": false
