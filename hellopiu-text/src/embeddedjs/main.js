@@ -37,7 +37,7 @@ class LinkBehavior extends Behavior {
 	}
 	onTouchEnded(link) {
 		link.state = 0;
-		trace(this.$ + "\n");
+		console.log(this.$);
 	}
 };
 

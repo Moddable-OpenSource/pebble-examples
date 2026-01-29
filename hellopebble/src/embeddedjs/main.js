@@ -1,1 +1,1 @@
-trace("Hello, Pebble.");
+console.log("Hello, Pebble.");

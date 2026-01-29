@@ -12,20 +12,20 @@ http.request({
 		["user-agent", "pebble test"]
 	]),
 	onHeaders(status, headers, statusText) {
-		trace(`Status ${status}: ${statusText}\n`);
+		console.log(`Status ${status}: ${statusText}`);
 		headers.forEach((value, key) => {
-			trace(`${key}: ${value}\n`);
+			console.log(`${key}: ${value}`);
 		});
 	},
 	onReadable(count) {
 		try {
 			for (let offset = 0, step = 80; offset < count; offset += step) {
 				const buffer = this.read(step);
-				trace(String.fromArrayBuffer(buffer));
+				console.log(String.fromArrayBuffer(buffer));
 			}
 		}
 		catch (e) {
-			trace("read error: " + e);
+			console.log("read error: " + e);
 		}
 	}
 });
