@@ -6,15 +6,25 @@
 	"modules": {
 		"*": "./main.js"
 	},
-	"resources": {
-		"*-alpha": [
-			"./digits",
-			{
-				"source": "$(MODDABLE)/examples/assets/scalablefonts/FiraMono/FiraMono-Medium",
-				"size": 16,
-				"monochrome": true,
-				"characters": "0123456789-SUNMONTUEWEDTHUFRISAT"
+	"platforms": {
+		"*/flint": {
+			"modules": {
+				"*": "./flint/layout.js"
+			},
+			"resources": {
+				"*-alpha": "./flint/digits"
 			}
-		]
+		},
+		"*/emery": {
+			"modules": {
+				"*": "./emery/layout.js"
+			},
+			"resources": {
+				"*-alpha": "./emery/digits"
+			}
+		},
+		"...": {
+			"error": "Platform not supported"
+		}
 	}
 }

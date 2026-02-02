@@ -49,8 +49,13 @@ class StarBehavior extends Behavior {
 		this.vy = 0;
 		this.x = star.x;
 		this.y = star.y;
-		this.width = star.container.width - star.width;
-		this.height = star.container.height - star.height;
+		if (Pebble.round) {
+			this.radius = Math.round((star.container.width - star.width) / 2);
+		}
+		else {
+			this.width = star.container.width - star.width;
+			this.height = star.container.height - star.height;
+		}
 		star.interval = 20;
 		star.start();
 	}
@@ -73,17 +78,7 @@ class StarBehavior extends Behavior {
 		}
 		let dx = vx * delta;
 		x += dx;
-		if (x < 0) {
-			x = 0;
-			vx = -vx;
-		}
-		else if (x > width) {
-			x = width;
-			vx = -vx;
-		}
-		this.vx = vx;
-		star.x = this.x = x;
-
+		
 		let ay = Math.abs(sy);
 		if (ay > 1) {
 			ay -= 1;
@@ -94,14 +89,49 @@ class StarBehavior extends Behavior {
 		}
 		let dy = vy * delta;
 		y += dy;
-		if (y < 0) {
-			y = 0;
-			vy = -vy;
+		
+		if (Pebble.round) {	
+			const r = this.radius;
+			x -= r;
+			y -= r;
+			if ((x**2 + y**2) > r**2) {
+				let a = 2 * Math.atan2(y, x);
+				let cos = Math.cos(a);
+				let sin = Math.sin(a);
+				let x0 = x - dx;
+				let y0 = y - dy;
+				let x1 = cos*x0 + sin*y0;
+				let y1 = sin*x0 - cos*y0;
+				x = x1 - dx;
+				y = y1 - dy;
+				vx = -vx;
+				vy = -vy;
+			}
+			x += r;
+			y += r;
 		}
-		else if (y > height) {
-			y = height;
-			vy = -vy;
+		else {		
+			if (x < 0) {
+				x = 0;
+				vx = -vx;
+			}
+			else if (x > width) {
+				x = width;
+				vx = -vx;
+			}
+			if (y < 0) {
+				y = 0;
+				vy = -vy;
+			}
+			else if (y > height) {
+				y = height;
+				vy = -vy;
+			}
 		}
+		
+		this.vx = vx;
+		star.x = this.x = x;
+
 		this.vy = vy;
 		star.y = this.y = y;
 		
@@ -124,22 +154,20 @@ class GridBehavior extends Behavior {
 		port.invalidate();
 	}
 	onDraw(port) {
+		const w = port.width;
+		const h = port.height;
 		let gx = (this.data.x) / 4000;
 		let gy = (this.data.y) / 4000;
-		let dx = (gx * 2) / 7;
-		let dy = (gy * 2) / 8;		
-		let x = 0;
+		let dx = (gx * 40) / w;
+		let dy = (gy * 40) / h;		
 		let sx = -gx;
-		for (let i = 0; i < 8; i++) {
-			let y = 0;
+		for (let x = 0; x < w; x += 20) {
 			let sy = -gy;
-			for (let j = 0; j < 9; j++) {
+			for (let y = 0; y < h; y += 20) {
 				let v = 20 * (5 + Math.round(2.5 * (sx + sy)));
 				port.drawTexture(gridTexture, gridColor, x, y, v, 0, 20, 20);
-				y += 20;
 				sy += dy;
 			}
-			x += 20;
 			sx += dx;
 		}
 	}
@@ -148,12 +176,12 @@ class GridBehavior extends Behavior {
 let TestApplication = Application.template($ => ({
 	skin:backgroundSkin, Behavior:TestBehavior,
 	contents: [
-		Port($, { width:140, height:160, Behavior:GridBehavior }),
-		SVGImage($, { left:32, width:80, top:44, height:80, path:`star.pdc`, Behavior:StarBehavior }),
+		Port($, { width:screen.width - screen.width % 20, height:screen.height - screen.height % 20, Behavior:GridBehavior }),
+		SVGImage($, { left:(screen.width - 80) >> 1, width:80, top:(screen.height - 80) >> 1, height:80, path:`star.pdc`, Behavior:StarBehavior }),
 	]
 }));
 
 export default new TestApplication(
 	{ x:0, y:0, delta:0.2 }, 
-	{ commandListLength:2048, displayListLength:2048, touchCount:0, pixels: screen.width * 4 }
+	{ commandListLength:4000, displayListLength:4000, touchCount:0, pixels: screen.width * 4 }
 );

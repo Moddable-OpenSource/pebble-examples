@@ -11,10 +11,21 @@
 			"./hours",
 			"./minutes",
 			"./seconds"
-		],
-		"*-alpha": [
-			"./face",
-			"./frame"
 		]
+	},
+	"platforms": {
+		"*/flint": {
+			"resources": {
+				"*": "./flint/dial"
+			}
+		},
+		"*/emery": {
+			"resources": {
+				"*": "./emery/dial"
+			}
+		},
+		"...": {
+			"error": "Platform not supported"
+		}
 	}
 }

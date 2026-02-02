@@ -1,15 +1,5 @@
-const skins = Pebble.color
-? {
-	background:new Skin({ fill:"#005500" }),
-	bar:new Skin({ fill:"#AAFFAA" }),
-	digits:new Skin({ texture: new Texture(`digits.png`), width:24, height:40, variants:24, color:"#55FF55" }),
-}
-: {
-	background:new Skin({ fill:"black" }),
-	bar:new Skin({ fill:"white" }),
-	digits:new Skin({ texture: new Texture(`digits.png`), width:24, height:40, variants:24, color:"white" }),
-}
-const dateStyle = new Style({ font:"bold 14px Gothic", color:"black" });
+import Layout from "layout";
+
 const days = Object.freeze([ "SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT" ]); 
 
 class FaceApplicationBehavior {
@@ -26,7 +16,7 @@ class FaceApplicationBehavior {
 		const date = new Date();
 		const hours = date.getHours();
 		const minutes = date.getMinutes();
-		let content = application.first;
+		let content = application.first.first;
 		content.variant = Math.idiv(hours, 10);
 		content = content.next;
 		content.variant = hours % 10;
@@ -44,19 +34,13 @@ class FaceApplicationBehavior {
 }
 
 const FaceApplication = Application.template($ => ({
-	left:0, right:0, top:0, bottom:0, skin:$.background, Behavior:FaceApplicationBehavior,
+	Behavior:FaceApplicationBehavior,
 	contents: [
-		Content($, { left:6, skin:$.digits }),
-		Content($, { left:36, skin:$.digits }),
-		Content($, { left:60, skin:$.digits, variant:10 }),
-		Content($, { left:84, skin:$.digits }),
-		Content($, { left:114, skin:$.digits }),
-		Label($, { left:0, right:0, top:0, skin:$.bar, style:dateStyle, string:"WEDNESDAY" }),
-		Label($, { left:0, right:0, bottom:0, skin:$.bar, style:dateStyle, string:"2025-06-11" }),
+		Layout($),
 	]
 }));
 
-export default new FaceApplication(skins, { 
+export default new FaceApplication(null, { 
 	displayListLength:2048, 
 	touchCount:0, 
 	pixels: screen.width * 4,

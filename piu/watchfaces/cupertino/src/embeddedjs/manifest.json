@@ -6,16 +6,25 @@
 	"modules": {
 		"*": "./main.js"
 	},
-	"data": {
-		"hours": "./hours.data",
-		"minutes": "./minutes.data"
-	},
 	"resources": {
-		"*-alpha-monochromealigned": [
-			"./face",
-			"./frame",
+		"*": [
 			"./hours",
 			"./minutes"
 		]
+	},
+	"platforms": {
+		"*/flint": {
+			"resources": {
+				"*-color": "./flint/dial"
+			}
+		},
+		"*/emery": {
+			"resources": {
+				"*-color": "./emery/dial"
+			}
+		},
+		"...": {
+			"error": "Platform not supported"
+		}
 	}
 }

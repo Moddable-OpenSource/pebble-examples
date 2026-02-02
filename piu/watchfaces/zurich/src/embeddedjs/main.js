@@ -1,14 +1,4 @@
-const model = Pebble.color
-? {
-	background:"gray",
-	frame:"black",
-	face:"white",
-}
-: {
-	background:"gray",
-	frame:"black",
-	face:"white",
-}
+const backgroundSkin = new Skin({ fill:"gray" });
 
 class FaceApplicationBehavior {
 	onCreate(application, $) {
@@ -19,10 +9,6 @@ class FaceApplicationBehavior {
 	}
 	onTimeChanged(application) {
 		const date = new Date();
-		this.clock.year = date.getFullYear();
-		this.clock.month = date.getMonth();
-		this.clock.date = date.getDate();
-		this.clock.day = date.getDay();
 		this.clock.hours = date.getHours();
 		this.clock.minutes = date.getMinutes();
 		this.clock.seconds = date.getSeconds();
@@ -37,11 +23,15 @@ class FaceHandBehavior {
 	}
 }
 
+const scale = Math.min(screen.width, screen.height) / 240;
+
 class FaceHoursBehavior extends FaceHandBehavior {
 	onDisplaying(content) {
 		content.cx = 7;
 		content.cy = 22;
-		content.s = 144 / 240;
+		content.s = scale;
+		content.x = (screen.width >> 1) - content.cx;
+		content.y = (screen.height >> 1) - content.cy;
 	}
 	onClockChanged(content, clock) {
 		this.onFractionChanged(content, (clock.hours % 12 + clock.minutes / 60) / 12);
@@ -52,7 +42,9 @@ class FaceMinutesBehavior extends FaceHandBehavior {
 	onDisplaying(content) {
 		content.cx = 7;
 		content.cy = 22;
-		content.s = 144 / 240;
+		content.s = scale;
+		content.x = (screen.width >> 1) - content.cx;
+		content.y = (screen.height >> 1) - content.cy;
 	}
 	onClockChanged(content, clock) {
 		this.onFractionChanged(content, clock.minutes / 60);
@@ -63,7 +55,9 @@ class FaceSecondsBehavior extends FaceHandBehavior {
 	onDisplaying(content) {
 		content.cx = 12;
 		content.cy = 30;
-		content.s = 144 / 240;
+		content.s = scale;
+		content.x = (screen.width >> 1) - content.cx;
+		content.y = (screen.height >> 1) - content.cy;
 		content.duration = 60000;
 	}
 	onClockChanged(content, clock) {
@@ -77,17 +71,16 @@ class FaceSecondsBehavior extends FaceHandBehavior {
 }
 
 const FaceApplication = Application.template($ => ({
-	left:0, right:0, top:0, bottom:0, skin:new Skin({ fill:$.background }), Behavior:FaceApplicationBehavior,
+	left:0, right:0, top:0, bottom:0, skin:backgroundSkin, Behavior:FaceApplicationBehavior,
 	contents: [
-		Content($, { skin: new Skin({ texture: new Texture(`face.png`), width:144, height:144, color:$.face }) }),
-		Content($, { skin: new Skin({ texture: new Texture(`frame.png`), width:144, height:144, color:$.frame }) }),
+		Content($, { skin: new Skin({ texture: new Texture(`dial.png`), width:screen.width, height:screen.width }) }),
 		SVGImage($, { left:65, width:14, top:62, height:87, path:`hours.pdc`, Behavior:FaceHoursBehavior }),
 		SVGImage($, { left:65, width:14, top:62, height:120,  path:`minutes.pdc`, Behavior:FaceMinutesBehavior }),
 		Pebble.color ? SVGImage($, { left:60, width:24, top:54, height:104,  path:`seconds.pdc`, Behavior:FaceSecondsBehavior }) : null,
 	]
 }));
 
-export default new FaceApplication(model, { 
+export default new FaceApplication(null, { 
 	displayListLength:2048, 
 	touchCount:0, 
 	pixels: screen.width * 4,

@@ -25,7 +25,7 @@ class CompassBehavior {
 		this.compass = new Compass({
 			onSample: () => {
 				let sample = this.compass.sample();
-				console.log(sample.heading);
+// 				console.log(sample.heading);
 				if (this.heading != sample.heading) {
 					this.heading = sample.heading;
 					this.onHeadingChanged(image);
@@ -34,6 +34,10 @@ class CompassBehavior {
 		});
 	}
 	onDisplaying(image) {
+		let screen = image.container;
+		this.radius = (Math.min(screen.width, screen.height) - image.next.width) >> 1;
+		console.log(`#### ${ screen.width } ${ screen.height } ${ this.radius }`);
+		image.s = this.radius / (image.width >> 1);
 		this.onHeadingChanged(image);
 	}
 	onHeadingChanged(image) {
@@ -48,9 +52,10 @@ class CompassBehavior {
 		const { width, height } = screen;
 		
 		rotation += Math.PI / 2;
-		const radius = image.width >> 1;
+		const radius = this.radius;
 		const cos =  Math.round(radius * Math.cos(rotation))
 		const sin =  Math.round(radius * Math.sin(rotation))
+		console.log(`#### ${ this.radius } ${ cos } ${ sin }`);
 		
 		north.x = ((width - north.width) >> 1) + cos;
 		north.y = ((height - north.height) >> 1) - sin;
