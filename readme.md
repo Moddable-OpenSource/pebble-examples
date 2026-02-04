@@ -1,5 +1,5 @@
 # Moddable SDK Examples for Pebble OS
-Updated January 30, 2026
+Updated February 4, 2026
 
 This repository contains a collection of examples for working in Embedded JavaScript using the Moddable SDK on Pebble OS.
 
@@ -32,12 +32,17 @@ Piu is a high level user interface framework for building embedded applications.
 - `hellopiu-balls` – The classic Moddable SDK [piu/balls](https://github.com/Moddable-OpenSource/moddable/blob/public/examples/piu/balls/main.js) example for Pebble. The balls have been changed to 1-bit.- `hellopiu-coloredsquares` – Draws three colored squares. From the Piu chapter of [our book](https://www.moddable.com/book).- `hellopiu-gbitmap` – Draws a Pebble `GBitmap` PNG image using a Piu texture.- `hellopiu-jsicon` – Draws a Moddable SDK Bitmap using a Piu texture- `hellopiu-port` – Draws an animated graph using a Piu Port. From the Piu chapter of [our book](https://www.moddable.com/book).- `hellopiu-text` – The classic Moddable SDK [piu/text](https://github.com/Moddable-OpenSource/moddable/blob/public/examples/piu/text/main.js) example for Pebble. Demonstrates dynamic layout with different fonts and sizes. Fonts are generated using [`bmfont`](https://www.moddable.com/blog/fonts/) to make resizing easy.- `hellopiu-pebbletext` – The classic Moddable SDK [piu/text](https://github.com/Moddable-OpenSource/moddable/blob/public/examples/piu/text/main.js) example rendered using Pebble built-in fonts.- `hellopiu-timeline` – Shows various easing equations using `Timeline` animation. Lightly revised version of [piu/easing-equations](https://github.com/Moddable-OpenSource/moddable/blob/public/examples/piu/easing-equations/main.js) example for Pebble display.
 
 #### Piu Watchfaces
-This suite of watch faces demonstrates many different rendering techniques available from Piu. The examples use both bitmaps and Pebble SVG images (PDC).
+This suite of city-inspired watchfaces demonstrates many different rendering techniques available from Piu.
 
-- `piu/watchfaces/cupertino` - The classic macOS watch cursor as a... watch.
+- The examples use both bitmaps and Pebble SVG images (PDC). The bitmaps are generally used for background images, and the SVG images for the rotating clock hands.
+- The Redmond watchface has two sets of graphical assets – one for color watches and the other for black and white watches.
+- The Helsinki watchface shows how to have different implementations of a JavaScript module, depending on the watch model. This can be more efficient than a single module that handles all watch models.
+
+- `piu/watchfaces/cupertino` - The classic macOS watch cursor as a... watchface.
+- `piu/watchfaces/london` - Big Ben, [after restoration](https://apnews.com/article/big-ben-tower-architecture-prize-41d07cdd9a2d98d116887bbacad4d759). For color watches only.
 - `piu/watchfaces/helsinki` - So minimal.
 - `piu/watchfaces/redmond` - The original Windows clock, now on your wrist.
-- `piu/watchfaces/zurich` – No need to visit a train platform in Switzerland to see this iconic clock.
+- `piu/watchfaces/zurich` – No need to visit a train platform in Switzerland to check out this iconic clock.
 
 ### Poco rendererPoco is a lightweight graphics API. Poco uses Pebble OS APIs for all rendering.#### Poco fundamentals
 - `hellopoco-gbitmap` – Renders bitmaps stored in `GBitmap` resources using Poco.
@@ -109,7 +114,7 @@ On the other hand, because JavaScript developers can't seem to live without `Reg
 ## Notes
 
 ### Piu
-The [Piu](https://www.moddable.com/documentation/piu/piu) user interface framework is available in this release. The following standard classes are available as globals.
+The [Piu](https://www.moddable.com/documentation/piu/piu) user interface framework on Pebble OS provides the following standard classes as globals:
 
 - `Application`
 - `Behavior`
@@ -128,14 +133,14 @@ The [Piu](https://www.moddable.com/documentation/piu/piu) user interface framewo
 - `Texture`
 - `Transition`
 
-The following Pebble specific Piu classes are available as globals.
+The following Pebble specific Piu classes are available as globals:
 
 - `Inverter`
 - `RoundRect`
 - `SVGImage`
 - `ScreenBuffer`
 
-The following global functions are avaiable:
+The following functions are available as globals:
 
 - `blendColors`
 - `hsl`
@@ -148,7 +153,6 @@ The `Timeline` module is available by `import`, as usual.
 To work with Pebble bitmaps as textures, `Texture` extends the `path` property of its dictionary. As before, if `path` is a string, it refers to a Moddable SDK resource; if a number, it refers to a Pebble resource.
 
 ### Web Platform APIs
-
 The following Web Platform APIs are available. In most cases, the implementations are an embedded-friendly subset of the standard APIs.
 
 - `fetch`
@@ -166,7 +170,6 @@ The following Web Platform APIs are available. In most cases, the implementation
 - `console.log`
 
 ### Pebble built-in fonts
-
 Pebble's built-in fonts may be used from both Piu and Poco. These fonts are currently available:
 
 | Family Name       | Style     | Sizes           |
