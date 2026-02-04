@@ -1,0 +1,25 @@
+{
+	"config": {
+		"icon": "./icon.png",
+		"watchface": true
+	},
+	"modules": {
+		"*": "./main.js"
+	},
+	"resources": {
+		"*": [
+			"./hours",
+			"./minutes"
+		]
+	},
+	"platforms": {
+		"*/emery": {
+			"resources": {
+				"*-color": "./emery/dial"
+			}
+		},
+		"...": {
+			"error": "Platform not supported"
+		}
+	}
+}
