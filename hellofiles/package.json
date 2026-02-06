@@ -1,0 +1,29 @@
+{
+  "name": "Hello, Files.",
+  "author": "Moddable",
+  "version": "1.0.0",
+  "keywords": ["pebble-app"],
+  "private": true,
+  "dependencies": {},
+  "pebble": {
+    "displayName": "JS - Files",
+    "uuid": "12471cb1-caf2-4925-a63c-f27e9eb9cf4f",
+    "projectType": "moddable",
+    "sdkVersion": "3",
+    "enableMultiJS": true,
+    "targetPlatforms": [
+      "emery",
+      "flint"
+    ],
+    "watchapp": {
+      "watchface": false
+    },
+    "messageKeys": [
+      "dummy"
+    ],
+    "resources": {
+      "media": [
+	  ]
+    }
+  }
+}
