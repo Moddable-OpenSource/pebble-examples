@@ -23,5 +23,5 @@ let load = device.files.openFile({path});
 let loaded = load.read(load.status().size, 0);
 load.close();
 
-loaded = JSON.parse(String.fromArrayBuffer(data)); 
+loaded = JSON.parse(String.fromArrayBuffer(loaded)); 
 console.log(JSON.stringify(loaded, undefined, "  "));
