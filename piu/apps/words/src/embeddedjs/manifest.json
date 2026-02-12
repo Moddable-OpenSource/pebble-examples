@@ -1,0 +1,50 @@
+{
+	"config": {
+		"creation": {
+			"stack": 5120,
+			"slot": 31744,
+			"chunk": 19456
+		},
+		"icon": "./icon.png",
+		"watchface": false
+	},
+	"modules": {
+		"piu/Controller": "./modules/piuController",
+		"piu/View": "./modules/piuView",
+		"Menu": "./modules/Menu",
+		"ActionMenu": "./modules/ActionMenu",
+		"*": [
+			"./assets",
+			"./main",
+			"./views/*"
+		]
+	},
+	"resources": {
+		"*-alpha": [
+			"./assets/disk",
+			"./assets/dot",
+			{
+				"source": "./assets/ArialNarrow-BoldItalic",
+				"size": 36,
+				"characters": " '-:012345789acdefghiklmnopqrstuvwxyz"
+			},
+			{
+				"source": "./assets/RobotoCondensed-Bold",
+				"size": 36,
+				"characters": " '-:012345789acdefghiklmnopqrstuvwxyz"
+			},
+			{
+				"source": "./assets/BrushScript-Regular",
+				"size": 42,
+				"characters": " '-:012345789acdefghiklmnopqrstuvwxyz"
+			}
+		]
+	},
+	"platforms": {
+		"*/emery": {
+		},
+		"...": {
+			"error": "Platform not supported"
+		}
+	}
+}

@@ -1,0 +1,38 @@
+{
+	"name": "words",
+	"author": "moddable.tech",
+	"version": "1.0.0",
+	"keywords": [
+		"pebble-app"
+	],
+	"private": true,
+	"dependencies": {
+		
+	},
+	"pebble": {
+		"displayName": "words",
+		"uuid": "12471cb1-caf2-4925-a63c-f27e9eb9cf6D",
+		"projectType": "moddable",
+		"sdkVersion": "3",
+		"enableMultiJS": true,
+		"targetPlatforms": [
+			"emery"
+		],
+		"watchapp": {
+			"watchface": false
+		},
+		"messageKeys": [
+			"dummy"
+		],
+		"resources": {
+			"media": [
+				{
+					"menuIcon": true,
+					"type": "bitmap",
+					"name": "IMAGE_MENU_ICON",
+					"file": "img/icon.png"
+				}
+			]
+		}
+	}
+}
