@@ -1,0 +1,39 @@
+{
+	"name": "wallpaper",
+	"author": "moddable.tech",
+	"version": "1.0.0",
+	"keywords": [
+		"pebble-app"
+	],
+	"private": true,
+	"dependencies": {
+		"@moddable/pebbleproxy": "^0.1.0"
+	},
+	"pebble": {
+		"displayName": "wallpaper",
+		"uuid": "12471cb1-caf2-4925-a63c-f27e9eb9cf6D",
+		"projectType": "moddable",
+		"sdkVersion": "3",
+		"enableMultiJS": true,
+		"targetPlatforms": [
+			"emery",
+			"flint"
+		],
+		"watchapp": {
+			"watchface": true
+		},
+		"messageKeys": [
+			"dummy"
+		],
+		"resources": {
+			"media": [
+				{
+					"menuIcon": true,
+					"type": "bitmap",
+					"name": "IMAGE_MENU_ICON",
+					"file": "img/icon.png"
+				}
+			]
+		}
+	}
+}
