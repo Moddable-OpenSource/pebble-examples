@@ -3,19 +3,10 @@ import Message from "pebble/message";
 console.log("hello, message");
 
 const message = new Message({
-	input: 256,
-	output: 256,
-	keys: new Map([
-		["RANDOM", 0],
-		["DATE", 1],
-		["COUNTER", 2]
-	]),
+	keys: ["RANDOM", "DATE", "COUNTER"],
 	onReadable() {
 		console.log("on readable");
 		const msg = this.read();
-		if (!msg)
-			return console.log("  undefined msg!?!?");
-
 		msg.forEach((value, key) => {
 			console.log(`  ${key}: ${value}`);
 		});

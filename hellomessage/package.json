@@ -18,11 +18,11 @@
     "watchapp": {
       "watchface": false
     },
-    "messageKeys": {
-		"RANDOM": 0,
-		"DATE": 1,
-		"COUNTER": 2
-    },
+    "messageKeys": [
+        "RANDOM",
+        "DATE",
+        "COUNTER"
+    ],
     "resources": {
       "media": [
     ]

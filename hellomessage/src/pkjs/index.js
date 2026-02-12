@@ -4,10 +4,10 @@ let counter = 0;
 
 function send() {
   Pebble.sendAppMessage({
-    'RANDOM': (Math.random() * 1000000) | 0,
-    'DATE': Date(),
-    'COUNTER': ++counter
-  });
+    RANDOM: (Math.random() * 1000000) | 0,
+    DATE: Date(),
+    COUNTER: ++counter
+    });
 }
 
 Pebble.addEventListener('ready', function (e) {
