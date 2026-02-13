@@ -1,5 +1,4 @@
 import Accelerometer from "embedded:sensor/Accelerometer"
-import HTTPClient from "embedded:network/http/client";
 import parseBMP from "commodetto/parseBMP";
 import parseRLE from "commodetto/parseRLE";
 
@@ -28,11 +27,10 @@ class FaceApplicationBehavior {
 		application.first.visible = true;
 	}
 	onDisplaying(application) {
-		this.http = new HTTPClient({
+		this.http = new device.network.http.io({
 			...device.network.http,
 			host: "localhost",
-			port: "8080",
-			protocol: "http"
+			port: 8080,
 		});
 		try {
 			const file = device.files.openFile({ path:config.name });
@@ -40,7 +38,7 @@ class FaceApplicationBehavior {
 			file.close();
 			this.onDataChanged(application);
 		}
-		catch (e) {
+		catch {
 		}
 		try {
 			const file = device.files.openFile({ path:jsonName });
@@ -48,10 +46,9 @@ class FaceApplicationBehavior {
 			file.close();
 			this.onStyleChanged(application, buffer);
 		}
-		catch (e) {
+		catch {
 		}
-		Pebble.addEventListener('minutechange', () => this.onTimeChanged(application));
-		this.onTimeChanged(application);
+		Pebble.addEventListener('minutechange', e => this.onTimeChanged(application, e.date));
 	}
 	onStyleChanged(application, buffer) {
 		const string = String.fromArrayBuffer(buffer);
@@ -72,11 +69,11 @@ class FaceApplicationBehavior {
 			onHeaders(status, headers, statusText) {
 				console.log("### onHeaders " + status);
 			},
-			onReadable(count) {
+			onReadable() {
 				if (buffer)
-					buffer = buffer.concat(this.read(count));
+					buffer = buffer.concat(this.read());
 				else
-					buffer = this.read(count);
+					buffer = this.read();
 			},
 			onDone: () => {
 				device.files.delete(jsonName);
@@ -99,14 +96,13 @@ class FaceApplicationBehavior {
 				const length = parseInt(headers.get("content-length"));
 				console.log("### onHeaders " + length);
 			},
-			onReadable(count) {
-				const buffer = new Uint8Array(this.read(count));
+			onReadable() {
+				const buffer = new Uint8Array(this.read());
 				data.set(buffer, offset);
 				offset += buffer.length;
 				behavior.onDataChanged(application);
 			},
 			onDone: (/* error */) => {
-// 				http.close();
 				device.files.delete(config.name);
 				const file = device.files.openFile({ path:config.name, mode:"w+", size:config.size });
 				file.write(data, 0);
@@ -115,8 +111,7 @@ class FaceApplicationBehavior {
 			}
 		});
 	}
-	onTimeChanged(application) {
-		const date = new Date();
+	onTimeChanged(application, date) {
 		let hours = date.getHours();
 		let minutes = date.getMinutes();
 		let string = "";
