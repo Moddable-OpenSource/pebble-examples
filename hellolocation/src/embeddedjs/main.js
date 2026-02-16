@@ -8,4 +8,11 @@ const location = new Location({
 		this.close();
 	}
 });
-location.configure({enableHighAccuracy: false});
+
+// calling configure()) is optional.
+// if configure() is called it should be immediately after creating the Location instance
+location.configure({
+	enableHighAccuracy: false,
+	timeout: 5000,
+	maximumAge: 0
+});
