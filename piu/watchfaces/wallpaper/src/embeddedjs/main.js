@@ -48,13 +48,13 @@ class FaceApplicationBehavior {
 		}
 		catch {
 		}
-		Pebble.addEventListener('minutechange', e => this.onTimeChanged(application, e.date));
+		watch.addEventListener('minutechange', e => this.onTimeChanged(application, e.date));
 	}
 	onStyleChanged(application, buffer) {
 		const string = String.fromArrayBuffer(buffer);
 		console.log(string);
 		const json = JSON.parse(string);
-		const color = Pebble.color ? json.color : json.white ? "white" : "black";
+		const color = screen.color ? json.color : json.white ? "white" : "black";
 		const style = new Style({ font:config.fonts[json.size], horizontal:json.horizontal, vertical:json.vertical, color });
 		application.last.style = style;
 	}

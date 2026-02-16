@@ -15,9 +15,9 @@
 import {} from "piu/MC";
 import Compass from "embedded:sensor/Compass"
 
-const backgroundSkin = new Skin({ fill:Pebble.color ? "#AAAAFF" : "white"  });
+const backgroundSkin = new Skin({ fill:screen.color ? "#AAAAFF" : "white"  });
 const letterStyle = new Style({ font:"bold 24px Gothic", color:"white" });
-const letterSkin = new Skin({ texture:new Texture("dot.png"), width:24, height:24, color:Pebble.color ? "#0000AA" : "black" });
+const letterSkin = new Skin({ texture:new Texture("dot.png"), width:24, height:24, color:screen.color ? "#0000AA" : "black" });
 
 class CompassBehavior {
 	onCreate(image) {

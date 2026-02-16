@@ -93,7 +93,7 @@ class Controller extends Behavior {
 		this.container = container;
 		this.model = $;
 		this.clock = {};
-		Pebble.addEventListener('minutechange', () => this.onTimeChanged(container));
+		watch.addEventListener('minutechange', () => this.onTimeChanged(container));
 	}
 	onDisplaying(container) {
 		let history = [];

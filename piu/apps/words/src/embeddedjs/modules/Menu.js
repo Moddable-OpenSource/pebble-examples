@@ -6,8 +6,8 @@ import View from "piu/View";
 class MenuBehavior extends View.Behavior {
 	computeTweens(menu, selection, limit, direction) {
 		const bounce = 8;
-		const column = Pebble.color ? menu.last : menu.first;
-		const inverter = Pebble.color ? column.previous : column.next;
+		const column = screen.color ? menu.last : menu.first;
+		const inverter = screen.color ? column.previous : column.next;
 		const item = column.content(selection);
 		const offset = item.y - column.y;
 		const delta = Math.max(0, Math.min(column.height - menu.height,  offset - ((menu.height - item.height) >> 1)));
@@ -48,7 +48,7 @@ class MenuBehavior extends View.Behavior {
 		}
 	}
 	onPressSelect(menu) {
-		const column = Pebble.color ? menu.last : menu.first;
+		const column = screen.color ? menu.last : menu.first;
 		const selection = this.view.selection = this.selection;
 		const item = column.content(selection);
 		menu.bubble("onSelect", selection, item.behavior.$);
@@ -69,8 +69,8 @@ class MenuBehavior extends View.Behavior {
 	}
 	onDisplaying(menu) {
 		this.computeTweens(menu, this.selection);
-		const column = Pebble.color ? menu.last : menu.first;
-		const inverter = Pebble.color ? column.previous : column.next;
+		const column = screen.color ? menu.last : menu.first;
+		const inverter = screen.color ? column.previous : column.next;
 		column.y = this.columnTween.to.y;
 		inverter.y = this.inverterTween.to.y;
 		inverter.height = this.inverterTween.to.height;
@@ -102,7 +102,7 @@ class MenuBehavior extends View.Behavior {
 			menu.stop();
 			menu.time = menu.duration;
 		}
-		const column = Pebble.color ? menu.last : menu.first;
+		const column = screen.color ? menu.last : menu.first;
 		let selection = this.selection;
 		let limit = column.length - 1;
 		selection += direction;
@@ -117,8 +117,8 @@ class MenuBehavior extends View.Behavior {
 		menu.start();
 	}
 	onTimeChanged(menu) {
-		const column = Pebble.color ? menu.last : menu.first;
-		const inverter = Pebble.color ? column.previous : column.next;
+		const column = screen.color ? menu.last : menu.first;
+		const inverter = screen.color ? column.previous : column.next;
 		let fraction = Math.quadEaseOut(menu.fraction);
 		fraction *= 4;
 		if (fraction < 3) {
@@ -158,12 +158,12 @@ class MenuItemBehavior extends Behavior {
 const MenuContainer = Container.template($ => ({
 	skin:assets.skins.white, Behavior:$.constructor.Behavior,
 	contents: [
-		Pebble.color ? Content($, { left:0, right:0, top:0, height:0, skin:assets.skins.selection }) : null,
+		screen.color ? Content($, { left:0, right:0, top:0, height:0, skin:assets.skins.selection }) : null,
 		Column($, { 
 			left:0, right:0, top:0,
 			contents: $.data.items.map($$ => new $.constructor[$$.Item ?? "Item"]($$))
 		}),
-		Pebble.color ? null : Inverter($, { left:0, right:0, top:0, height:0 }),
+		screen.color ? null : Inverter($, { left:0, right:0, top:0, height:0 }),
 	]
 }));
 

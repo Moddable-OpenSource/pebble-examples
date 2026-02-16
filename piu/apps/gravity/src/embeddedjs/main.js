@@ -15,8 +15,8 @@
 import {} from "piu/MC";
 import Accelerometer from "embedded:sensor/Accelerometer"
 
-const backgroundSkin = new Skin({ fill:Pebble.color ? "#5555AA" : "gray" });
-const gridColor = Pebble.color ? "#000055" : "black";
+const backgroundSkin = new Skin({ fill:screen.color ? "#5555AA" : "gray" });
+const gridColor = screen.color ? "#000055" : "black";
 const gridTexture = new Texture("grid.png");
 
 class TestBehavior extends Behavior {
@@ -49,7 +49,7 @@ class StarBehavior extends Behavior {
 		this.vy = 0;
 		this.x = star.x;
 		this.y = star.y;
-		if (Pebble.round) {
+		if (screen.round) {
 			this.radius = Math.round((star.container.width - star.width) / 2);
 		}
 		else {
@@ -90,7 +90,7 @@ class StarBehavior extends Behavior {
 		let dy = vy * delta;
 		y += dy;
 		
-		if (Pebble.round) {	
+		if (screen.round) {	
 			const r = this.radius;
 			x -= r;
 			y -= r;

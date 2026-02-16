@@ -1,10 +1,10 @@
 console.log("hello, connected");
 
 function logConnected() {
-	console.log(`App connected: ${Pebble.connected.app}`);
-	console.log(`PebbleKitJS connected: ${Pebble.connected.pebblekit}`);
+	console.log(`App connected: ${watch.connected.app}`);
+	console.log(`PebbleKitJS connected: ${watch.connected.pebblekit}`);
 }
 
-Pebble.addEventListener('connected', logConnected);
+watch.addEventListener('connected', logConnected);
 
 logConnected();

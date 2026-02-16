@@ -3,7 +3,7 @@ class FaceApplicationBehavior {
 		this.clock = {};
 	}
 	onDisplaying(application) {
-		Pebble.addEventListener('minutechange', () => this.onTimeChanged(application));
+		watch.addEventListener('minutechange', () => this.onTimeChanged(application));
 	}
 	onTimeChanged(application) {
 		const date = new Date();

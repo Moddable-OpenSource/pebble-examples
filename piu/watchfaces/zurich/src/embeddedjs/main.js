@@ -5,7 +5,7 @@ class FaceApplicationBehavior {
 		this.clock = {};
 	}
 	onDisplaying(application) {
-		Pebble.addEventListener('minutechange', () => this.onTimeChanged(application));
+		watch.addEventListener('minutechange', () => this.onTimeChanged(application));
 	}
 	onTimeChanged(application) {
 		const date = new Date();
@@ -76,7 +76,7 @@ const FaceApplication = Application.template($ => ({
 		Content($, { skin: new Skin({ texture: new Texture(`dial.png`), width:screen.width, height:screen.width }) }),
 		SVGImage($, { left:65, width:14, top:62, height:87, path:`hours.pdc`, Behavior:FaceHoursBehavior }),
 		SVGImage($, { left:65, width:14, top:62, height:120,  path:`minutes.pdc`, Behavior:FaceMinutesBehavior }),
-		Pebble.color ? SVGImage($, { left:60, width:24, top:54, height:104,  path:`seconds.pdc`, Behavior:FaceSecondsBehavior }) : null,
+		screen.color ? SVGImage($, { left:60, width:24, top:54, height:104,  path:`seconds.pdc`, Behavior:FaceSecondsBehavior }) : null,
 	]
 }));
 
