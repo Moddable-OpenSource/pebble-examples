@@ -12,8 +12,8 @@ const white = render.makeColor(255, 255, 255);
 const code = qrCode({
 	input: `Welcome to Alloy, the Moddable SDK on Pebble OS @ ${(new Date).toTimeString().slice(0, 8)}`,
 	bitmap: 32,
-	fit: Math.min(render.width, render.height) - 10}
-);
+	fit: Math.min(render.width, render.height) - 10
+});
 
 const bitmap = new Bitmap(code.size, code.size, Bitmap.MonochromeAligned, code, 0);
 render.begin();
