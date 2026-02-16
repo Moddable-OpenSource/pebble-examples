@@ -1,5 +1,5 @@
 # Moddable SDK Examples for Pebble OS
-Updated February 4, 2026
+Updated February 16, 2026
 
 This repository contains a collection of examples for working in Embedded JavaScript using the Moddable SDK on Pebble OS.
 
@@ -19,6 +19,7 @@ All sensors modules follow the [Sensor Class Pattern API](https://419.ecma-inter
 
 - `helloaccelerometer` – Subscribes to accelerometer readings.
 - `hellobattery` – Subscribes to battery and "plugged in" readings. 
+- `hellolocation` – Subscribes to location service (uses your phone's GPS).
 - `piu/apps/compass` – Visualizes compass readings using Piu. (Emery devices only)
 - `piu/apps/gravity` – Visualizes accelerometer readings using Piu. (Emery devices only)
 
@@ -29,7 +30,14 @@ All sensors modules follow the [Sensor Class Pattern API](https://419.ecma-inter
 Piu is a high level user interface framework for building embedded applications. Piu uses Pebble OS APIs for all rendering.
 
 #### Piu Fundamentals
-- `hellopiu-balls` – The classic Moddable SDK [piu/balls](https://github.com/Moddable-OpenSource/moddable/blob/public/examples/piu/balls/main.js) example for Pebble. The balls have been changed to 1-bit.- `hellopiu-coloredsquares` – Draws three colored squares. From the Piu chapter of [our book](https://www.moddable.com/book).- `hellopiu-gbitmap` – Draws a Pebble `GBitmap` PNG image using a Piu texture.- `hellopiu-jsicon` – Draws a Moddable SDK Bitmap using a Piu texture- `hellopiu-port` – Draws an animated graph using a Piu Port. From the Piu chapter of [our book](https://www.moddable.com/book).- `hellopiu-text` – The classic Moddable SDK [piu/text](https://github.com/Moddable-OpenSource/moddable/blob/public/examples/piu/text/main.js) example for Pebble. Demonstrates dynamic layout with different fonts and sizes. Fonts are generated using [`bmfont`](https://www.moddable.com/blog/fonts/) to make resizing easy.- `hellopiu-pebbletext` – The classic Moddable SDK [piu/text](https://github.com/Moddable-OpenSource/moddable/blob/public/examples/piu/text/main.js) example rendered using Pebble built-in fonts.- `hellopiu-timeline` – Shows various easing equations using `Timeline` animation. Lightly revised version of [piu/easing-equations](https://github.com/Moddable-OpenSource/moddable/blob/public/examples/piu/easing-equations/main.js) example for Pebble display.
+- `hellopiu-balls` – The classic Moddable SDK [piu/balls](https://github.com/Moddable-OpenSource/moddable/blob/public/examples/piu/balls/main.js) example for Pebble. The balls have been changed to 1-bit.
+- `hellopiu-coloredsquares` – Draws three colored squares. From the Piu chapter of [our book](https://www.moddable.com/book).
+- `hellopiu-gbitmap` – Draws a Pebble `GBitmap` PNG image using a Piu texture.
+- `hellopiu-jsicon` – Draws a Moddable SDK Bitmap using a Piu texture
+- `hellopiu-port` – Draws an animated graph using a Piu Port. From the Piu chapter of [our book](https://www.moddable.com/book).
+- `hellopiu-text` – The classic Moddable SDK [piu/text](https://github.com/Moddable-OpenSource/moddable/blob/public/examples/piu/text/main.js) example for Pebble. Demonstrates dynamic layout with different fonts and sizes. Fonts are generated using [`bmfont`](https://www.moddable.com/blog/fonts/) to make resizing easy.
+- `hellopiu-pebbletext` – The classic Moddable SDK [piu/text](https://github.com/Moddable-OpenSource/moddable/blob/public/examples/piu/text/main.js) example rendered using Pebble built-in fonts.
+- `hellopiu-timeline` – Shows various easing equations using `Timeline` animation. Lightly revised version of [piu/easing-equations](https://github.com/Moddable-OpenSource/moddable/blob/public/examples/piu/easing-equations/main.js) example for Pebble display.
 
 #### Piu Watchfaces
 This suite of city-inspired watchfaces demonstrates many different rendering techniques available from Piu.
@@ -44,8 +52,12 @@ This suite of city-inspired watchfaces demonstrates many different rendering tec
 - `piu/watchfaces/redmond` - The original Windows clock, now on your wrist.
 - `piu/watchfaces/zurich` – No need to visit a train platform in Switzerland to check out this iconic clock.
 
-### Poco rendererPoco is a lightweight graphics API. Poco uses Pebble OS APIs for all rendering.#### Poco fundamentals
+### Poco renderer
+Poco is a lightweight graphics API. Poco renders using Pebble OS APIs.
+
+#### Poco fundamentals
 - `hellopoco-gbitmap` – Renders bitmaps stored in `GBitmap` resources using Poco.
+- `hellopoco-qrcode` - Dynamically generates a [QR code](https://en.wikipedia.org/wiki/QR_code) and displays it using Poco.
 - `hellopoco-text` – Example of rendering text with Poco using Moddable SDK fonts. Includes Japanese text to demonstrate UTF-8 multibyte support.
 - `hellopoco-pebbletext` – Example of rendering text with Poco using Pebble built-in fonts.
 - `hellopoco-pebblegraphics` – Use Pebble's line, round rectangle, and circle graphics operations.
@@ -101,8 +113,8 @@ TypeScript development is supported. The TypeScript compiler (`tsc`) is automati
 The Pebble build of XS omits features of JavaScript that are unlikely to be useful on Pebble. This saves flash space. When a script invokes a feature that has been omitted, a "dead strip" exception is thrown. These features are stripped:
 
 - `Proxy` and `Reflect` – primarily used for test frameworks and meta-programming techniques
-- `Atomics` and `SharedArrayBuffer` – meaningless without Web Workers (which is not currently available on Pebble OS)
-- `WeakMap`, `WeakRef`, `WeakSet` – used for tracking objects in JavaScript patches which isn't necessary on Pebble
+- `Atomics` – meaningless without Web Workers (which is not currently available on Pebble OS)
+- `WeakMap` and `WeakSet` – used for tracking objects in JavaScript patches which isn't necessary on Pebble
 - `BigInt` – IEEE-754 double precision floating point is already a stretch on Pebble; let's not multiply 1024-bit integers too
 - `eval`, `Function` and `Generator` – JavaScript source code is compiled to bytecode at build time, so the parser is unnecessary at runtime. Details on the [blog](https://www.moddable.com/blog/eval/).
 
@@ -152,6 +164,7 @@ The `Timeline` module is available by `import`, as usual.
 
 To work with Pebble bitmaps as textures, `Texture` extends the `path` property of its dictionary. As before, if `path` is a string, it refers to a Moddable SDK resource; if a number, it refers to a Pebble resource.
 
+<a id="web-apis"></a>
 ### Web Platform APIs
 The following Web Platform APIs are available. In most cases, the implementations are an embedded-friendly subset of the standard APIs.
 
@@ -169,6 +182,7 @@ The following Web Platform APIs are available. In most cases, the implementation
 - `setTimeout`
 - `console.log`
 
+<a id="fonts"></a>
 ### Pebble built-in fonts
 Pebble's built-in fonts may be used from both Piu and Poco. These fonts are currently available:
 
