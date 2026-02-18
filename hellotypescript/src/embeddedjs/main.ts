@@ -19,7 +19,7 @@ class PebbleApp {
 			}
 		});
 
-		Pebble.addEventListener("secondchange", (): void => {
+		watch.addEventListener("secondchange", (): void => {
 			this.updateStatus();
 		});
 
@@ -31,7 +31,7 @@ class PebbleApp {
 
 	private updateStatus(): void {
 		const uptime: number = Math.floor((Date.now() - this.startTime) / 1000);
-		console.log(`Uptime: ${uptime}s | Presses: ${this.buttonPresses} | Last: ${this.lastPress} | Connected: ${JSON.stringify(Pebble.connected)}`);
+		console.log(`Uptime: ${uptime}s | Presses: ${this.buttonPresses} | Last: ${this.lastPress} | Connected: ${JSON.stringify(watch.connected)}`);
 	}
 }
 
