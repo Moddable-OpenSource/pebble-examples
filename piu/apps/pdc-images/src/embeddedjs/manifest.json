@@ -1,0 +1,8 @@
+{
+	"modules": {
+		"*": "./main.js"
+	},
+	"resources": {
+		"*": "./assets/*"
+	}
+}

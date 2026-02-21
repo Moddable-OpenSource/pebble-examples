@@ -1,0 +1,11 @@
+{
+	"config": {
+		"format": "Gray16"
+	},
+	"modules": {
+		"*": "./main.js"
+	},
+	"resources": {
+		"*": "./assets/*"
+	}
+}
