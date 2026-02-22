@@ -1,115 +1,152 @@
+const baseURL = "ws://localhost:8080/";
+// const baseURL = "ws://moddable.com/ps/";
+
 import Accelerometer from "embedded:sensor/Accelerometer"
-import parseBMP from "commodetto/parseBMP";
-import parseRLE from "commodetto/parseRLE";
+import KV from "embedded:storage/key-value"
 
-import config from "config" with { type:"json" };
-const jsonName = "clock.json"
+import Behavior from "behavior";
 
-const backgroundSkin = new Skin({ fill:"gray" });
-const defaultStyle = new Style({ font:config.fonts.large, horizontal:"center", vertical:"top", color:"white" });
+const backgroundSkin = new Skin({ fill:"black" });
 
-class FaceApplicationBehavior {
+const setupSkin = new Skin({ fill:"white" });
+const setupStyle = new Style({ font:"bold 18px Gothic", color:"black" });
+
+class FaceApplicationBehavior extends Behavior {
 	onCreate(application, $) {
+		super.onCreate(application, $);
+		$.CLOCK.style = new Style({ font:this.fonts.large, horizontal:"center", vertical:"top", color:"white" });
+		$.QRCODE.string = `${baseURL}${this.platform}/${this.serialNumber}/index.html`;
+		
 		this.accelerometer = new Accelerometer({
 			onTap: (direction) => {
 				application.defer("onTap", direction);
 			}
 		});
-		this.data = new Uint8Array(new SharedArrayBuffer(config.size));
-		this.data.set(config.header, 0);
-		const bitmap = config.name.endsWith(".bm4") ? parseRLE(this.data.buffer) : parseBMP(this.data.buffer);
-		const texture = new Texture(null, null, bitmap);
-		const skin = new Skin({ texture, width:texture.width, height:texture.height });
-		application.first.skin = skin;
+
+		this.buffers = [];	
+		const url = new URL(`${baseURL}${this.platform}/${this.serialNumber}`);
+		const which = device.network[url.protocol.slice(0, -1)];
+		this.imageName = this.platform + ".bm4";
+		this.styleName = this.platform + ".json";
+		let dataOffset = 0;
+		let jsonBuffer = null;
+		const ws = new which.io({
+			...which,
+			host: url.hostname,
+			port: url.port || (which.secure ? 443 : 80),
+			path: url.pathname,
+			onReadable: (count, options) => {
+// 				console.log(`onReadable ${count} bytes, binary ${options.binary}, more ${options.more}`);
+				if (options.binary) {
+					const buffer = new Uint8Array(ws.read(count));
+					this.data.set(buffer, dataOffset);
+					dataOffset += buffer.length;
+					this.onDataChanged(application);
+					if (options.more)
+						return;
+					device.files.delete(this.imageName);
+					const file = device.files.openFile({ path:this.imageName, mode:"w+", size:this.data.byteLength });
+					file.write(this.data, 0);
+					file.close();
+					dataOffset = 0;
+				}
+				else {
+					if (jsonBuffer)
+						jsonBuffer = jsonBuffer.concat(ws.read(count));
+					else
+						jsonBuffer = ws.read(count);
+					if (options.more)
+						return;
+					device.files.delete(this.styleName);
+					const file = device.files.openFile({ path:this.styleName, mode:"w+", size:jsonBuffer.byteLength });
+					file.write(jsonBuffer, 0);
+					file.close();
+					this.onStyleChanged(application, jsonBuffer);
+					jsonBuffer = null;
+				}
+			},
+			onWritable: (count) => {
+				let buffers = this.buffers;
+				while (buffers.length) {
+					let buffer = buffers[0];
+					const size = buffer.size - buffer.offset;
+					if (size <= count) {
+						const view = new Uint8Array(buffer.data, buffer.offset, size);
+						const tmp = new Uint8Array(size);
+						tmp.set(view);
+						count = ws.write(tmp.buffer, { binary: buffer.binary });
+						buffers.shift();
+					}
+					else if (0 < count) {
+						const view = new Uint8Array(buffer.data, buffer.offset, count);
+						const tmp = new Uint8Array(count);
+						tmp.set(view);
+						buffer.offset += count;
+						count = ws.write(tmp.buffer, { binary: buffer.binary, more:true });
+						break;
+					}
+					else
+						break;
+				}
+			},
+			onClose() {
+				console.log("** Connection Closed **");
+			},
+			onError() {
+				console.log("** Connection Error **");
+			}
+		});
+		this.path = url.pathname;
 	}
 	onDataChanged(application) {
+		super.onDataChanged(application);
 		application.first.visible = false;
 		application.first.visible = true;
 	}
 	onDisplaying(application) {
-		this.http = new device.network.http.io({
-			...device.network.http,
-			host: "localhost",
-			port: 8080,
+		let buffer;
+		try {
+			const file = device.files.openFile({ path:this.styleName });
+			buffer = file.read(file.status().size, 0);
+			file.close();
+		}
+		catch {
+			buffer = ArrayBuffer.fromString(`{"size":"medium","horizontal":"center","vertical":"middle","color":"#ffffff"}`);
+		}
+		this.onStyleChanged(application, buffer);
+		this.buffers.push({
+			data: buffer,
+			offset: 0,
+			size: buffer.byteLength,
+			binary: false,
 		});
 		try {
-			const file = device.files.openFile({ path:config.name });
+			const file = device.files.openFile({ path:this.imageName });
 			file.read(this.data, 0);
 			file.close();
-			this.onDataChanged(application);
 		}
 		catch {
 		}
-		try {
-			const file = device.files.openFile({ path:jsonName });
-			const buffer = file.read(file.status().size, 0);
-			file.close();
-			this.onStyleChanged(application, buffer);
-		}
-		catch {
-		}
+		this.onDataChanged(application);
+		this.buffers.push({
+			data: this.data.buffer,
+			offset: 0,
+			size: this.data.byteLength,
+			binary: true,
+		});
 		watch.addEventListener('minutechange', e => this.onTimeChanged(application, e.date));
 	}
 	onStyleChanged(application, buffer) {
 		const string = String.fromArrayBuffer(buffer);
 		console.log(string);
 		const json = JSON.parse(string);
-		const color = screen.color ? json.color : json.white ? "white" : "black";
-		const style = new Style({ font:config.fonts[json.size], horizontal:json.horizontal, vertical:json.vertical, color });
-		application.last.style = style;
+		const color = json.color;
+		const style = new Style({ font:this.fonts[json.size], horizontal:json.horizontal, vertical:json.vertical, color });
+		this.$.CLOCK.style = style;
 	}
 	onTap(application, direction) {
-		let buffer = null;
-		this.http.request({
-			path: "/" + jsonName,
-			headersMask: ["content-length"],
-			headers: new Map([
-				["user-agent", "pebble test"]
-			]),
-			onHeaders(status, headers, statusText) {
-				console.log("### onHeaders " + status);
-			},
-			onReadable() {
-				if (buffer)
-					buffer = buffer.concat(this.read());
-				else
-					buffer = this.read();
-			},
-			onDone: () => {
-				device.files.delete(jsonName);
-				const file = device.files.openFile({ path:jsonName, mode:"w+", size:buffer.byteLength });
-				file.write(buffer, 0);
-				file.close();
-				this.onStyleChanged(application, buffer);
-			}
-		});
-		let data = this.data;
-		let offset = 0;
-		let behavior = this;
-		let request = this.http.request({
-			path: "/" + config.name,
-			headersMask: ["content-length"],
-			headers: new Map([
-				["user-agent", "pebble test"]
-			]),
-			onHeaders(status, headers, statusText) {
-				const length = parseInt(headers.get("content-length"));
-				console.log("### onHeaders " + length);
-			},
-			onReadable() {
-				const buffer = new Uint8Array(this.read());
-				data.set(buffer, offset);
-				offset += buffer.length;
-				behavior.onDataChanged(application);
-			},
-			onDone: (/* error */) => {
-				device.files.delete(config.name);
-				const file = device.files.openFile({ path:config.name, mode:"w+", size:config.size });
-				file.write(data, 0);
-				file.close();
-				this.onDataChanged(application);
-			}
-		});
+		const qrCode = application.last;
+		qrCode.visible = !qrCode.visible;
 	}
 	onTimeChanged(application, date) {
 		let hours = date.getHours();
@@ -120,7 +157,7 @@ class FaceApplicationBehavior {
 		string += ':';
 		string += Math.idiv(minutes, 10);
 		string += minutes % 10;
-		application.last.string = string;
+		this.$.CLOCK.string = string;
 	}
 }
 
@@ -128,11 +165,19 @@ const FaceApplication = Application.template($ => ({
 	left:0, right:0, top:0, bottom:0, skin:backgroundSkin, Behavior:FaceApplicationBehavior,
 	contents: [
 		Content($, {}),
-		Label($, { left:5, right:5, top:0, bottom:0, style:defaultStyle }),
+		Label($, { anchor:"CLOCK", left:5, right:5, top:0, bottom:0 }),
+		Container($, {
+			left:0, right:0, top:0, bottom:0, visible:false, skin:setupSkin,
+			contents: [
+				Label($, { left:0, right:0, top:0, height:screen.height - screen.width, style:setupStyle, string:"SETUP" }),
+				QRCode($, { anchor:"QRCODE", width:screen.width, height:screen.width, bottom:0, }),
+			]
+		})
+		
 	]
 }));
 
-export default new FaceApplication(null, { 
+export default new FaceApplication({}, { 
 	displayListLength:2048, 
 	touchCount:0, 
 	pixels: screen.width * 4,

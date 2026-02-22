@@ -37,32 +37,32 @@
 	"platforms": {
 		"pebble/flint": {
 			"modules": {
-				"config": "./flint/config"
+				"behavior": "./flint/device"
 			}
 		},
 		"pebble/emery": {
 			"modules": {
-				"config": "./emery/config"
+				"behavior": "./emery/device"
 			}
 		},
 		"qemu/flint": {
 			"modules": {
-				"config": "./flint/config"
+				"behavior": "./flint/device"
 			}
 		},
 		"qemu/emery": {
 			"modules": {
-				"config": "./emery/config"
+				"behavior": "./emery/device"
 			}
 		},
 		"mac/flint": {
 			"modules": {
-				"config": "./flint/config-sim"
+				"behavior": "./flint/simulator"
 			}
 		},
 		"mac/emery": {
 			"modules": {
-				"config": "./emery/config-sim"
+				"behavior": "./emery/simulator"
 			}
 		},
 		"...": {
