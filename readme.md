@@ -1,5 +1,5 @@
 # Moddable SDK Examples for Pebble OS
-Updated February 16, 2026
+Updated February 24, 2026
 
 This repository contains a collection of examples for working in Embedded JavaScript using the Moddable SDK on Pebble OS.
 
@@ -38,6 +38,8 @@ Piu is a high level user interface framework for building embedded applications.
 - `hellopiu-text` – The classic Moddable SDK [piu/text](https://github.com/Moddable-OpenSource/moddable/blob/public/examples/piu/text/main.js) example for Pebble. Demonstrates dynamic layout with different fonts and sizes. Fonts are generated using [`bmfont`](https://www.moddable.com/blog/fonts/) to make resizing easy.
 - `hellopiu-pebbletext` – The classic Moddable SDK [piu/text](https://github.com/Moddable-OpenSource/moddable/blob/public/examples/piu/text/main.js) example rendered using Pebble built-in fonts.
 - `hellopiu-timeline` – Shows various easing equations using `Timeline` animation. Lightly revised version of [piu/easing-equations](https://github.com/Moddable-OpenSource/moddable/blob/public/examples/piu/easing-equations/main.js) example for Pebble display.
+- `piu/apps/pdc-images` – Shows moving and rotating of PDC (SVG) images.
+- `piu/apps/pdc-sequences` – Shows playback of PDC (SVG) sequences.
 
 #### Piu Watchfaces
 This suite of city-inspired watchfaces demonstrates many different rendering techniques available from Piu.
