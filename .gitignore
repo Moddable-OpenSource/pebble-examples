@@ -1,2 +1,4 @@
 build
 .lock-waf_darwin_build
+**/package-lock.json
+**/node_modules/**
