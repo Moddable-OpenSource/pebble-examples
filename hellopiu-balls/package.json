@@ -12,7 +12,7 @@
     "sdkVersion": "3",
     "enableMultiJS": true,
     "targetPlatforms": [
-      "flint",
+      "gabbro",
       "emery"
     ],
     "watchapp": {
