@@ -5,10 +5,9 @@ class FaceApplicationBehavior {
 		this.clock = {};
 	}
 	onDisplaying(application) {
-		watch.addEventListener('minutechange', () => this.onTimeChanged(application));
+		watch.addEventListener('minutechange', e => this.onTimeChanged(application, e.date));
 	}
-	onTimeChanged(application) {
-		const date = new Date();
+	onTimeChanged(application, date) {
 		this.clock.hours = date.getHours();
 		this.clock.minutes = date.getMinutes();
 		this.clock.seconds = date.getSeconds();
@@ -58,15 +57,10 @@ class FaceSecondsBehavior extends FaceHandBehavior {
 		content.s = scale;
 		content.x = (screen.width >> 1) - content.cx;
 		content.y = (screen.height >> 1) - content.cy;
-		content.duration = 60000;
+		watch.addEventListener('secondchange', e => this.onTimeChanged(content, e.date));
 	}
-	onClockChanged(content, clock) {
-		content.stop();
-		content.time = clock.seconds * 1000;
-		content.start();
-	}
-	onTimeChanged(content) {
-		this.onFractionChanged(content, content.fraction);
+	onTimeChanged(content, date) {
+		this.onFractionChanged(content, date.getSeconds() / 60);
 	}
 }
 
