@@ -15,7 +15,8 @@
 		"enableMultiJS": true,
 		"targetPlatforms": [
 			"flint",
-			"emery"
+			"emery",
+			"gabbro"
 		],
 		"watchapp": {
 			"watchface": true

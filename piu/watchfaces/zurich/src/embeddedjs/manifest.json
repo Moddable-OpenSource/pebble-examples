@@ -24,6 +24,11 @@
 				"*": "./emery/dial"
 			}
 		},
+		"*/gabbro": {
+			"resources": {
+				"*": "./gabbro/dial"
+			}
+		},
 		"...": {
 			"error": "Platform not supported"
 		}
