@@ -1,17 +1,14 @@
 const backgroundSkin = new Skin({ fill:"gray" });
 
 class FaceApplicationBehavior {
-	onCreate(application, $) {
-		this.clock = {};
-	}
 	onDisplaying(application) {
-		watch.addEventListener('minutechange', e => this.onTimeChanged(application, e.date));
-	}
-	onTimeChanged(application, date) {
-		this.clock.hours = date.getHours();
-		this.clock.minutes = date.getMinutes();
-		this.clock.seconds = date.getSeconds();
-		application.distribute("onClockChanged", this.clock);
+		watch.addEventListener('secondchange', (clock) => {
+			const date = clock.date;
+			clock.hours = date.getHours();
+			clock.minutes = date.getMinutes();
+			clock.seconds = date.getSeconds();
+			application.distribute("onClockChanged", clock);
+		});
 	}
 }
 
@@ -57,10 +54,10 @@ class FaceSecondsBehavior extends FaceHandBehavior {
 		content.s = scale;
 		content.x = (screen.width >> 1) - content.cx;
 		content.y = (screen.height >> 1) - content.cy;
-		watch.addEventListener('secondchange', e => this.onTimeChanged(content, e.date));
+		content.duration = 60000;
 	}
-	onTimeChanged(content, date) {
-		this.onFractionChanged(content, date.getSeconds() / 60);
+	onClockChanged(content, clock) {
+		this.onFractionChanged(content, clock.seconds / 60);
 	}
 }
 

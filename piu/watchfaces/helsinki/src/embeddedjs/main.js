@@ -3,17 +3,13 @@ import Layout from "layout";
 const days = Object.freeze([ "SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT" ]); 
 
 class FaceApplicationBehavior {
-	onCreate(application, $) {
-		this.clock = {};
-		this.$ = $;
-	}
 	onDisplaying(application) {
-		this.onTimeChanged(application);
-		application.interval = 500;
-		application.start();
+		watch.addEventListener('secondchange', (clock) => {
+			application.distribute("onClockChanged", clock);
+		});
 	}
-	onTimeChanged(application) {
-		const date = new Date();
+	onClockChanged(application, clock) {
+		const date = clock.date;
 		const hours = date.getHours();
 		const minutes = date.getMinutes();
 		let content = application.first.first;

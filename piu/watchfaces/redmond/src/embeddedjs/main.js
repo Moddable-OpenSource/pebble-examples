@@ -1,19 +1,17 @@
 const dateStyle = new Style({ font:"bold 18px Gothic", color:"white" });
 
 class FaceApplicationBehavior {
-	onCreate(application, $) {
-		this.clock = {};
-	}
 	onDisplaying(application) {
-		watch.addEventListener('minutechange', () => this.onTimeChanged(application));
+		watch.addEventListener('secondchange', (clock) => {
+			const date = clock.date;
+			clock.hours = date.getHours();
+			clock.minutes = date.getMinutes();
+			clock.seconds = date.getSeconds();
+			application.distribute("onClockChanged", clock);
+		});
 	}
-	onTimeChanged(application) {
-		const date = new Date();
-		this.clock.hours = date.getHours();
-		this.clock.minutes = date.getMinutes();
-		this.clock.seconds = date.getSeconds();
-		application.distribute("onClockChanged", this.clock);
-		application.last.string = date.toDateString();
+	onClockChanged(application, clock) {
+		application.last.string = clock.date.toDateString();
 	}
 }
 
@@ -65,12 +63,7 @@ class FaceSecondsBehavior extends FaceHandBehavior {
 		content.duration = 60000;
 	}
 	onClockChanged(content, clock) {
-		content.stop();
-		content.time = clock.seconds * 1000;
-		content.start();
-	}
-	onTimeChanged(content) {
-		this.onFractionChanged(content, content.fraction);
+		this.onFractionChanged(content, clock.seconds / 60);
 	}
 }
 

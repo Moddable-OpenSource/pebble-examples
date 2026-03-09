@@ -1,16 +1,11 @@
 class FaceApplicationBehavior {
-	onCreate(application, $) {
-		this.clock = {};
-	}
 	onDisplaying(application) {
-		watch.addEventListener('minutechange', () => this.onTimeChanged(application));
-	}
-	onTimeChanged(application) {
-		const date = new Date();
-		this.clock.day = date.getDay();
-		this.clock.hours = date.getHours();
-		this.clock.minutes = date.getMinutes();
-		application.distribute("onClockChanged", this.clock);
+		watch.addEventListener('minutechange', (clock) => {
+			const date = clock.date;
+			clock.hours = date.getHours();
+			clock.minutes = date.getMinutes();
+			application.distribute("onClockChanged", clock);
+		});
 	}
 }
 
