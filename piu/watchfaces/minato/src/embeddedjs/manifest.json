@@ -1,0 +1,33 @@
+{
+	"config": {
+		"icon": "./icon.png",
+		"watchface": true
+	},
+	"modules": {
+		"*": "./main.js"
+	},
+	"resources": {
+		"*": [
+			"./hours",
+			"./minutes",
+			"./seconds"
+		]
+	},
+	"platforms": {
+		"*/emery": {
+			"resources": {
+				"*": "./emery/center",
+				"*-color": "./emery/dial"
+			}
+		},
+		"*/gabbro": {
+			"resources": {
+				"*": "./gabbro/center",
+				"*-color": "./gabbro/dial"
+			}
+		},
+		"...": {
+			"error": "Platform not supported"
+		}
+	}
+}

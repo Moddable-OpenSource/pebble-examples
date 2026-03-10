@@ -1,0 +1,33 @@
+{
+	"config": {
+		"icon": "./icon.png",
+		"watchface": true
+	},
+	"modules": {
+		"*": "./main.js"
+	},
+	"resources": {
+		"*": [
+			"./hours",
+			"./minutes",
+			"./hours-shadow",
+			"./minutes-shadow"
+		]
+	},
+	"platforms": {
+		"*/emery": {
+			"resources": {
+				"*-color": [
+					"./emery/center",
+					"./emery/dial"
+				],
+				"*": [
+					"./emery/blink"
+				]
+			}
+		},
+		"...": {
+			"error": "Platform not supported"
+		}
+	}
+}
