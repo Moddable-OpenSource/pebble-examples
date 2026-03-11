@@ -13,6 +13,9 @@ class FaceApplicationBehavior {
 	onClockChanged(application, clock) {
 		application.last.string = clock.date.toDateString();
 	}
+	onResize(application) {
+		application.distribute("onClockResized");
+	}
 }
 
 class FaceHandBehavior {
@@ -20,18 +23,21 @@ class FaceHandBehavior {
 		const angle = ((-fraction * 2) - 1) * Math.PI;
 		content.r = angle;
 	}
+	onClockResized(content, clock) {
+		const container = content.container;
+		content.x = container.x + (container.width >> 1) - content.cx;
+		content.y = container.y + (container.height >> 1) - content.cy;
+	}
 }
 
 const scale = Math.min(screen.width, screen.height) / 240;
 
 class FaceHoursBehavior extends FaceHandBehavior {
 	onDisplaying(content) {
-		const container = content.container;
 		content.cx = 7;
 		content.cy = 14;
 		content.s = scale;
-		content.x = container.x + (container.width >> 1) - content.cx;
-		content.y = container.y + (container.height >> 1) - content.cy;
+		this.onClockResized(content);
 	}
 	onClockChanged(content, clock) {
 		this.onFractionChanged(content, (clock.hours % 12 + clock.minutes / 60) / 12);
@@ -40,12 +46,10 @@ class FaceHoursBehavior extends FaceHandBehavior {
 
 class FaceMinutesBehavior extends FaceHandBehavior {
 	onDisplaying(content) {
-		const container = content.container;
 		content.cx = 5;
 		content.cy = 20;
 		content.s = scale;
-		content.x = container.x + (container.width >> 1) - content.cx;
-		content.y = container.y + (container.height >> 1) - content.cy;
+		this.onClockResized(content);
 	}
 	onClockChanged(content, clock) {
 		this.onFractionChanged(content, clock.minutes / 60);
@@ -54,13 +58,11 @@ class FaceMinutesBehavior extends FaceHandBehavior {
 
 class FaceSecondsBehavior extends FaceHandBehavior {
 	onDisplaying(content) {
-		const container = content.container;
 		content.cx = 1;
 		content.cy = 1;
 		content.s = scale;
-		content.x = container.x + (container.width >> 1) - content.cx;
-		content.y = container.y + (container.height >> 1) - content.cy;
 		content.duration = 60000;
+		this.onClockResized(content);
 	}
 	onClockChanged(content, clock) {
 		this.onFractionChanged(content, clock.seconds / 60);
@@ -70,9 +72,9 @@ class FaceSecondsBehavior extends FaceHandBehavior {
 const FaceApplication = Application.template($ => ({
 	Behavior:FaceApplicationBehavior,
 	contents: [
-		Content($, { skin: new Skin({ texture: new Texture(`dial.png`), width:screen.width, height:screen.height }) }),
+		Content($, { bottom:0, skin: new Skin({ texture: new Texture(`dial.png`), width:screen.width, height:screen.height }) }),
 		Container($, { 
-			left:0, right:0, bottom:0, height:screen.width,
+			left:0, right:0, height:screen.width, bottom:0,
 			contents: [
 				SVGImage($, { left:0, width:14, top:0, height:79, path:`hours.pdc`, Behavior:FaceHoursBehavior }),
 				SVGImage($, { left:0, width:10, top:0, height:100,  path:`minutes.pdc`, Behavior:FaceMinutesBehavior }),
