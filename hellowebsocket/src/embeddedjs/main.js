@@ -9,12 +9,12 @@ ws.addEventListener("open", event => {
 ws.addEventListener("message", event => {
 	let data = event.data;
 	if (data instanceof ArrayBuffer) {
-		console.log(`onmessage binary data `);
-		data = new Uint8Array(data);
+		console.log(`onmessage binary data:`);
+		const bytes = new Uint8Array(data);
 	}
 	else {
 		console.log(`onmessage string: ${data}`);
-		if (data == "Goodbye")
+		if (data === "Goodbye")
 			ws.close(1000, "Done");
 	}
 });

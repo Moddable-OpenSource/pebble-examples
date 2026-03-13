@@ -9,7 +9,8 @@ const ws = new WebSocketClient({
 	onReadable(count, options) {
 		console.log(`onReadable ${count} bytes, binary ${options.binary}, more ${options.more}`);
 		const data = this.read();
-		console.log(String.fromArrayBuffer(data));
+		if (data instanceof ArrayBuffer)
+			console.log(String.fromArrayBuffer(data));
 	},
 	onWritable(count) {
 		console.log(`onWritable ${count}`);

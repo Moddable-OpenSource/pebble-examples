@@ -1,6 +1,6 @@
 console.log("hello, localstorage");
 
-let counter = localStorage.getItem("counter");
+let counter = Number(localStorage.getItem("counter"));
 if (null === counter) {
 	console.log("initializing counter");
 	counter = 1;
@@ -10,7 +10,7 @@ else
 
 if (counter < 5) {
 	console.log(`save counter value ${counter}`);
-	localStorage.setItem("counter", counter);
+	localStorage.setItem("counter", counter.toString());
 }
 else {
 	console.log(`reset counter`);
