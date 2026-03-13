@@ -1,5 +1,5 @@
 {
-  "name": "Hello, Acclerometer.",
+  "name": "Hello, Key Value.",
   "author": "Moddable",
   "version": "1.0.0",
   "keywords": ["pebble-app"],
@@ -22,8 +22,6 @@
       "dummy"
     ],
     "resources": {
- 	  }
-	  ]
     }
   }
 }
