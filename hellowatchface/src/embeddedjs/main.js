@@ -16,9 +16,10 @@ function draw() {
 	const width = render.getTextWidth(msg, font);
 
 	render.drawText(msg, font, black,
-		(render.width - width) / 2, (render.height - font.height) / 2);
+		(render.unobstructed.width - width) / 2, (render.unobstructed.height - font.height) / 2);
  
 	render.end();
 }
 
 watch.addEventListener('secondchange', draw);
+watch.addEventListener("resize", draw);
