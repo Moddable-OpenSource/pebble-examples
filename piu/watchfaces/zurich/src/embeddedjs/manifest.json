@@ -4,7 +4,7 @@
 		"watchface": true
 	},
 	"modules": {
-		"*": "./main.js"
+		"*": "./main"
 	},
 	"resources": {
 		"*": [
@@ -32,5 +32,9 @@
 		"...": {
 			"error": "Platform not supported"
 		}
-	}
+	},
+	"include": [
+		"$(MODDABLE)/examples/manifest_mod.json",
+		"$(MODDABLE)/examples/manifest_typings.json"
+	]
 }

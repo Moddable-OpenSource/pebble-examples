@@ -1,6 +1,7 @@
 {
-	"include":  [
-		"$(MODDABLE)/examples/manifest_mod.json"
+	"include": [
+		"$(MODDABLE)/examples/manifest_mod.json",
+		"$(MODDABLE)/examples/manifest_typings.json"
 	],
 	"config": {
 		"icon": "./icon.png",
@@ -8,29 +9,34 @@
 		"watchface": true
 	},
 	"modules": {
-		"*": "./main.js"
+		"*": "./main"
 	},
 	"resources": {
 		"*-alpha": [
 			{
 				"source": "$(MODDABLE)/examples/assets/scalablefonts/OpenSans/OpenSans-Bold",
-				"size": 64, "characters": "0123456789:"
+				"size": 64,
+				"characters": "0123456789:"
 			},
 			{
 				"source": "$(MODDABLE)/examples/assets/scalablefonts/OpenSans/OpenSans-Bold",
-				"size": 56, "characters": "0123456789:"
+				"size": 56,
+				"characters": "0123456789:"
 			},
 			{
 				"source": "$(MODDABLE)/examples/assets/scalablefonts/OpenSans/OpenSans-Bold",
-				"size": 48, "characters": "0123456789:"
+				"size": 48,
+				"characters": "0123456789:"
 			},
 			{
 				"source": "$(MODDABLE)/examples/assets/scalablefonts/OpenSans/OpenSans-Bold",
-				"size": 40, "characters": "0123456789:"
+				"size": 40,
+				"characters": "0123456789:"
 			},
 			{
 				"source": "$(MODDABLE)/examples/assets/scalablefonts/OpenSans/OpenSans-Bold",
-				"size": 32, "characters": "0123456789:"
+				"size": 32,
+				"characters": "0123456789:"
 			}
 		]
 	},

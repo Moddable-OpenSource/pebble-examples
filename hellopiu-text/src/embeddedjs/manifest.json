@@ -1,26 +1,33 @@
 {
-	"include":  [
-		"$(MODDABLE)/examples/manifest_mod.json"
+	"include": [
+		"$(MODDABLE)/examples/manifest_mod.json",
+		"$(MODDABLE)/examples/manifest_typings.json"
 	],
 	"defines": {
-		"cfe": { "kern": true }
+		"cfe": {
+			"kern": true
+		}
 	},
 	"modules": {
 		"*": "./main"
 	},
-	"resources":{
+	"resources": {
 		"*-alpha": [
 			{
 				"source": "$(MODDABLE)/examples/assets/scalablefonts/OpenSans/OpenSans-Semibold",
 				"size": 22,
 				"monochrome": true,
-				"blocks": ["Basic Latin"]
+				"blocks": [
+					"Basic Latin"
+				]
 			},
 			{
 				"source": "$(MODDABLE)/examples/assets/scalablefonts/OpenSans/OpenSans-Regular",
 				"size": 15,
 				"monochrome": true,
-				"blocks": ["Basic Latin"]
+				"blocks": [
+					"Basic Latin"
+				]
 			}
 		]
 	}

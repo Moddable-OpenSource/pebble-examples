@@ -4,12 +4,12 @@
 		"watchface": true
 	},
 	"modules": {
-		"*": "./main.js"
+		"*": "./main"
 	},
 	"platforms": {
 		"*/flint": {
 			"modules": {
-				"*": "./flint/layout.js"
+				"*": "./flint/layout"
 			},
 			"resources": {
 				"*-alpha": "./flint/digits"
@@ -17,7 +17,7 @@
 		},
 		"*/emery": {
 			"modules": {
-				"*": "./emery/layout.js"
+				"*": "./emery/layout"
 			},
 			"resources": {
 				"*-alpha": "./emery/digits"
@@ -26,5 +26,9 @@
 		"...": {
 			"error": "Platform not supported"
 		}
-	}
+	},
+	"include": [
+		"$(MODDABLE)/examples/manifest_mod.json",
+		"$(MODDABLE)/examples/manifest_typings.json"
+	]
 }

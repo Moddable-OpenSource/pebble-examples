@@ -1,9 +1,10 @@
 {
-	"include":  [
-		"$(MODDABLE)/examples/manifest_mod.json"
+	"include": [
+		"$(MODDABLE)/examples/manifest_mod.json",
+		"$(MODDABLE)/examples/manifest_typings.json"
 	],
 	"modules": {
-		"*": "./main.js"
+		"*": "./main"
 	},
 	"resources": {
 		"*-alpha": [
@@ -11,7 +12,9 @@
 				"source": "$(MODDABLE)/examples/assets/scalablefonts/OpenSans/OpenSans-Regular",
 				"size": 21,
 				"monochrome": true,
-				"blocks": ["Basic Latin"]
+				"blocks": [
+					"Basic Latin"
+				]
 			},
 			{
 				"source": "$(MODDABLE)/examples/assets/scalablefonts/NotoSans/NotoSansJP-Regular",
@@ -23,7 +26,9 @@
 				"source": "$(MODDABLE)/examples/assets/scalablefonts/Radley/Radley-Italic",
 				"size": 26,
 				"monochrome": true,
-				"blocks": ["Basic Latin"]
+				"blocks": [
+					"Basic Latin"
+				]
 			}
 		]
 	}
