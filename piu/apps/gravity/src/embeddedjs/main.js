@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2016-2023 Moddable Tech, Inc.
+ * Copyright (c) 2016-2026 Moddable Tech, Inc.
  *
  *   This file is part of the Moddable SDK.
  * 
@@ -12,7 +12,6 @@
  *
  */
 
-import {} from "piu/MC";
 import Accelerometer from "embedded:sensor/Accelerometer"
 
 const backgroundSkin = new Skin({ fill:screen.color ? "#5555AA" : "gray" });

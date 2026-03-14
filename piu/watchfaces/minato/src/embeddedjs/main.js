@@ -4,10 +4,12 @@ class FaceApplicationBehavior {
 	onDisplaying(application) {
 		watch.addEventListener('secondchange', (clock) => {
 			const date = clock.date;
-			clock.hours = date.getHours();
-			clock.minutes = date.getMinutes();
-			clock.seconds = date.getSeconds();
-			application.distribute("onClockChanged", clock);
+			application.distribute("onClockChanged", {
+				date,
+				hours: date.getHours(),
+				minutes: date.getMinutes(),
+				seconds: date.getSeconds(),
+			});
 		});
 	}
 	onResize(application) {

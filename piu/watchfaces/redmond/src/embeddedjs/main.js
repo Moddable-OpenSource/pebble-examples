@@ -4,10 +4,12 @@ class FaceApplicationBehavior {
 	onDisplaying(application) {
 		watch.addEventListener('secondchange', (clock) => {
 			const date = clock.date;
-			clock.hours = date.getHours();
-			clock.minutes = date.getMinutes();
-			clock.seconds = date.getSeconds();
-			application.distribute("onClockChanged", clock);
+			application.distribute("onClockChanged", {
+				date,
+				hours: date.getHours(),
+				minutes: date.getMinutes(),
+				seconds: date.getSeconds(),
+			});
 		});
 	}
 	onClockChanged(application, clock) {
@@ -23,7 +25,7 @@ class FaceHandBehavior {
 		const angle = ((-fraction * 2) - 1) * Math.PI;
 		content.r = angle;
 	}
-	onClockResized(content, clock) {
+	onClockResized(content) {
 		const container = content.container;
 		content.x = container.x + (container.width >> 1) - content.cx;
 		content.y = container.y + (container.height >> 1) - content.cy;
