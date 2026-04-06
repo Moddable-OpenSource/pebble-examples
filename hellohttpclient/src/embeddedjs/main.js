@@ -1,6 +1,5 @@
-import HTTPClient from "embedded:network/http/client";
-
-const http = new HTTPClient({
+const http = new device.network.http.io({
+	...device.network.http,
 	host: "example.com"
 });
 
