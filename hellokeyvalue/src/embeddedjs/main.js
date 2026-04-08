@@ -1,8 +1,6 @@
-import KV from "embedded:storage/key-value"
-
 console.log("hello, key-value");
 
-const store = KV.open({path: "examplesettings", format: "string"});
+const store = device.keyValue.open({path: "examplesettings", format: "string"});
 
 let counter = store.read("counter");
 if (undefined === counter) {
