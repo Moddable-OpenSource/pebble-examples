@@ -25,7 +25,7 @@ All sensors modules follow the [Sensor Class Pattern API](https://419.ecma-inter
 
 ### User input
 - `hellobutton` – Subscribes to Pebble button events.
-- `hellopoco-drag` – Touch events using the ECMA-419 touch driver
+- `hellopoco-drag` – Touch events using the ECMA-419 touch driver.
 
 ### Piu user interface framework
 Piu is a high level user interface framework for building embedded applications. Piu uses Pebble OS APIs for all rendering.
@@ -41,7 +41,7 @@ Piu is a high level user interface framework for building embedded applications.
 - `hellopiu-timeline` – Shows various easing equations using `Timeline` animation. Lightly revised version of [piu/easing-equations](https://github.com/Moddable-OpenSource/moddable/blob/public/examples/piu/easing-equations/main.js) example for Pebble display.
 - `piu/apps/pdc-images` – Shows moving and rotating of PDC (SVG) images.
 - `piu/apps/pdc-sequences` – Shows playback of PDC (SVG) sequences.
-- `piu/apps/tic-tac-toe` – Simple game using the Pebble touch screen through a Piu `Behavior`
+- `piu/apps/tic-tac-toe` – Simple game using the Pebble touch screen through a Piu `Behavior`.
 
 #### Piu Watchfaces
 This suite of city-inspired watchfaces demonstrates many different rendering techniques available from Piu.
