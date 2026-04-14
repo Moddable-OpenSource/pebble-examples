@@ -74,7 +74,6 @@ const dragger = new Dragger((render.width - button.width) >> 1, (render.height -
 
 const touch = new globalThis.device.sensor.Touch({
 	onSample() {
-trace("onSample\n");
 		const points = touch.sample();
 		if (!points) return;
 
@@ -82,7 +81,6 @@ trace("onSample\n");
 
 		if (0 === points.length) {
 			if (last) {
-trace("onTouchEnded\n");
 				last.target?.onTouchEnded(last.x, last.y);
 				this.points[0] = undefined;
 			}
@@ -92,7 +90,6 @@ trace("onTouchEnded\n");
 		const {x, y} = points[0];
 
 		if (last) {
-trace("onTouchMoved\n");
 			last.x = x;
 			last.y = y;
 			last.target?.onTouchMoved(x, y);
@@ -102,7 +99,6 @@ trace("onTouchMoved\n");
 		const entry = { x, y };
 		this.points[0] = entry;
 		entry.target = dragger.contains(x, y) ? dragger : null;
-trace("onTouchBegan\n");
 		entry.target?.onTouchBegan(x, y);
 	}
 });
