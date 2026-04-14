@@ -1,0 +1,24 @@
+{
+	"modules": {
+		"*": "./main.js"
+	},
+	"resources": {
+		"*": [
+			"./lr",
+			"./tb",
+			"./tlbr",
+			"./trbl",
+			"./grid"
+		]
+	},
+	"platforms": {
+		"*/emery": {
+			"resources": {
+				"*-alpha": "./glyph"
+			}
+		},
+		"...": {
+			"error": "Platform not supported"
+		}
+	}
+}
