@@ -14,5 +14,5 @@ if (counter < 5) {
 }
 else {
 	console.log(`reset counter`);
-	localStorage.remove("counter");
+	localStorage.removeItem("counter");
 }
