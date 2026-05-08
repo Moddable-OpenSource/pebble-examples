@@ -1,0 +1,29 @@
+{
+  "name": "Hello, FFI.",
+  "author": "Moddable",
+  "version": "1.0.0",
+  "keywords": ["pebble-app"],
+  "private": true,
+  "dependencies": {},
+  "pebble": {
+    "displayName": "JS - FFI",
+    "uuid": "12471cb1-caf2-4A95-a63c-f27e9eb9cf59",
+    "projectType": "moddable",
+    "sdkVersion": "3",
+    "enableMultiJS": true,
+    "targetPlatforms": [
+      "gabbro",
+      "emery"
+    ],
+    "watchapp": {
+      "watchface": false
+    },
+    "messageKeys": [
+      "dummy"
+    ],
+    "resources": {
+      "media": [
+	  ]
+    }
+  }
+}
