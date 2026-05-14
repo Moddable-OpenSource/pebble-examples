@@ -1,0 +1,29 @@
+{
+  "name": "Hello, Info.",
+  "author": "Moddable",
+  "version": "1.0.0",
+  "keywords": ["pebble-app"],
+  "private": true,
+  "dependencies": {},
+  "pebble": {
+    "displayName": "JS - Info",
+    "uuid": "12471cb1-caf2-4925-a63c-a37eaebaaf4e",
+    "projectType": "moddable",
+    "sdkVersion": "3",
+    "enableMultiJS": true,
+    "targetPlatforms": [
+      "emery",
+      "gabbro"
+    ],
+    "watchapp": {
+      "watchface": false
+    },
+    "messageKeys": [
+      "dummy"
+    ],
+    "resources": {
+      "media": [
+	  ]
+    }
+  }
+}
