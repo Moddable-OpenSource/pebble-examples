@@ -1,0 +1,29 @@
+{
+  "name": "Hello, WakeUp.",
+  "author": "Moddable",
+  "version": "1.0.0",
+  "keywords": ["pebble-app"],
+  "private": true,
+  "dependencies": {},
+  "pebble": {
+    "displayName": "JS - WakeUp",
+    "uuid": "12471cb1-caf2-4925-a63c-c37e9eb9cf4e",
+    "projectType": "moddable",
+    "sdkVersion": "3",
+    "enableMultiJS": true,
+    "targetPlatforms": [
+      "emery",
+      "gabbro"
+    ],
+    "watchapp": {
+      "watchface": false
+    },
+    "messageKeys": [
+      "dummy"
+    ],
+    "resources": {
+      "media": [
+	  ]
+    }
+  }
+}
