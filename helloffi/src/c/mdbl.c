@@ -1,5 +1,4 @@
 #include <pebble.h>
-#include "xsffi.h"
 
 int main(void) {
 	Window *w = window_create();
