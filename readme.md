@@ -1,5 +1,5 @@
 # Moddable SDK Examples for Pebble OS
-Updated April 13, 2026
+Updated May 14, 2026
 
 This repository contains a collection of examples for working in Embedded JavaScript using the Moddable SDK on Pebble OS.
 
@@ -9,6 +9,7 @@ This repository contains a collection of examples for working in Embedded JavaSc
 - `hellopebble` – The "hello, world" of this collection. One line. Perfect place to start.
 - `hellotimer` – Demonstrates use of `setTimeout`.
 - `hellomodule` – Applications can contain multiple modules. This is a simple example of the main module loading another module.
+- `helloffi` – Shows how to call C functions from JavaScript using the [Foreign Function Interface](https://www.moddable.com/documentation/xs/XS%20FFI).
 
 ### Storage
 - `hellokeyvalue` - Uses ECMA-419 Key-Value Storage to access Pebble Settings files for persistent storage. Supports storing binary data and strings; integer support is future work. Special mode option to open Pebble settings files created by built-in applications.
@@ -26,6 +27,14 @@ All sensors modules follow the [Sensor Class Pattern API](https://419.ecma-inter
 ### User input
 - `hellobutton` – Subscribes to Pebble button events.
 - `hellopoco-drag` – Touch events using the ECMA-419 touch driver.
+- `hellodictation` – Receives text transcription of user's spoken words.
+
+### Watch
+- `helloinfo` – Displays information about the display, watch model, and application launch reason.
+- `helloappevents` - Displays notifications for app focus and resize events.
+- `hellovibes` - Triggers various vibration pattens.
+- `hellolight` - Control's the backlight on the watch display.
+- `hellowakeup` - Manages wakeup notifications to automatically launch app at some time in the future.
 
 ### Piu user interface framework
 Piu is a high level user interface framework for building embedded applications. Piu uses Pebble OS APIs for all rendering.
