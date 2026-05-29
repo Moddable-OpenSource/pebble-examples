@@ -6,8 +6,13 @@ int main(void) {
 
 	moddable_createMachine(&(ModdableCreationRecord){
 		.recordSize = sizeof(ModdableCreationRecord),
+#ifdef PBL_DEBUG
+		.flags = kModdableCreationFlagDebug,
+#endif
 		.fxBuildFFI = fxBuildFFI,
 	});
 
 	window_destroy(w);
-}
+
+	return 0;
+	}
