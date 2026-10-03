@@ -92,10 +92,10 @@ class MenuBehavior extends View.Behavior {
 		delete this.timer;
 	}
 	onReleaseDown(menu) {
-		this.onRelease(menu, 1);
+		this.onRelease(menu);
 	}
 	onReleaseUp(menu) {
-		this.onRelease(menu, -1);
+		this.onRelease(menu);
 	}
 	onStep(menu, direction) {
 		if (menu.running) {

@@ -11,7 +11,7 @@ if (watch.wake) {
 }
 
 if (localStorage.getItem("wakeid")) {
-	const id = localStorage.getItem("wakeid")
+	const id = Number(localStorage.getItem("wakeid"));
 	const wakeup = WakeUp.query(id);
 	if (!wakeup) {
 		console.log(`Forget lost wakeup id ${id}`);
@@ -27,7 +27,7 @@ if (localStorage.getItem("wakeid")) {
 if (!localStorage.getItem("wakeid")) {
 	const id = WakeUp.schedule(Date.now() + 3000, 12345678, false);		// 3 seconds in the future
 	console.log(`Scheduled WakeUp id ${id}`);
-	localStorage.setItem("wakeid", id);
+	localStorage.setItem("wakeid", String(id));
 }
 
 watch.addEventListener("wakeup", wake => {

@@ -14,12 +14,12 @@ try {
 	
 	const buffer = new ArrayBuffer(12);
 	const view = new DataView(buffer);
-	view.setUint8(0, 1, true);
+	view.setUint8(0, 1);
 	view.setUint16(2, 2, true);
 	view.setUint32(4, 4, true);
 	trace(`${ Natives.abcToString(view.buffer) }\n`);
 	
-	trace(`${ view.getUint8(0, true) }, ${ view.getUint16(2, true) }, ${ view.getUint32(4, true) }\n`);
+	trace(`${ view.getUint8(0) }, ${ view.getUint16(2, true) }, ${ view.getUint32(4, true) }\n`);
 } 
 catch(error) {
 	console.log("FFI Error: " + error);

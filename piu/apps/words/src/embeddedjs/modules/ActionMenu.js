@@ -66,10 +66,10 @@ class ActionMenuBehavior extends View.Behavior {
 		delete this.timer;
 	}
 	onReleaseDown(menu) {
-		this.onRelease(menu, 1);
+		this.onRelease(menu);
 	}
 	onReleaseUp(menu) {
-		this.onRelease(menu, -1);
+		this.onRelease(menu);
 	}
 	onSelect(menu, selection, item) {
 		controller.goWith(item);

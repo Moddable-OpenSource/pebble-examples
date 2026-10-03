@@ -33,7 +33,8 @@ class GraphBehavior extends Behavior {
 	}
 	onDraw(port, x, y, width, height) {
 		for (let i = 100, yOffset = 0, dy = Math.idiv(height, 5); yOffset < height; yOffset += dy, i -= 20) {
-			port.drawString(i, textStyle, "black", 30 - textStyle.measure(i).width, yOffset);
+			const label = String(i);
+			port.drawString(label, textStyle, "black", 30 - textStyle.measure(label).width, yOffset);
 			port.fillColor(GRAY, 35, yOffset + 10, width, 1);
 		}
 
